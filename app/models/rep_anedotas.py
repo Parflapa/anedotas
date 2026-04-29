@@ -146,7 +146,7 @@ def select_anedota_por_id(anedota_id):
 
     try:
         query   = """
-        SELECT texto_a AS anedota, data_a AS data, nick_u AS nick, nome_c AS categoria 
+        SELECT id_a AS anedota_id, texto_a AS anedota, data_a AS data, nick_u AS nick, id_u AS utilizador_id, nome_c AS categoria, id_c AS categoria_id 
         FROM anedotas 
         LEFT JOIN categorias ON categoria_a=id_c
         LEFT JOIN utilizadores ON autor_a=id_u
@@ -187,6 +187,31 @@ def insert_anedota(autor, texto, categoria):
             cursor.close()
         if conexao:
             conexao.close()
+
+
+def update_anedota(id, texto, categoria):
+    conexao     = conectar_pymysql()
+    cursor      = conexao.cursor()
+
+    try:
+        query   = """
+        UPDATE anedotas 
+        SET texto_a=%s, data_a=CURDATE(), categoria_a=%s 
+        WHERE id_a=%s
+        """
+        cursor.execute(query,(texto, categoria, id))
+        conexao.commit()
+        return True
+    except Exception as e:
+        print(e)
+        conexao.rollback()
+        return False
+    finally:
+        if cursor:
+            cursor.close()
+        if conexao:
+            conexao.close()
+
 
 
 if __name__ == "__main__":

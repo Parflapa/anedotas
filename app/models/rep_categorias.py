@@ -92,4 +92,4 @@ def select_nome_da_categoria(categoria_id):
 
 
 if __name__ == "__main__":
-    pprint(select_nome_da_categoria(1))
+    pprint(select_categorias_e_quantas_anedotas())

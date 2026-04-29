@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Editar anedota{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Editar anedota</h2>
+
+    <form method="POST" action="{{ url_for('anedotas.editar',anedota_id=dados.anedota.anedota_id) }}" class="form-card">
+
+        <div class="form-group">
+            <label for="anedota_id">Anedota</label>
+            <textarea name="ftexto" id="anedota_id" required>{{ dados.anedota.anedota}}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="categoria_id">Categoria</label>
+            <select name="fcategoria" id="categoria_id" required>
+                {% for categoria in dados.categorias %}
+                    <option value="{{ categoria.id }}"
+                        {% if categoria.id == dados.anedota.categoria_id %}selected{% endif %}>
+                        {{ categoria.nome }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-primary">Editar</button>
+        </div>
+
+    </form>
+</div>
+{% endblock %}

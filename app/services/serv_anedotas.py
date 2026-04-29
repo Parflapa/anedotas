@@ -1,4 +1,4 @@
-from app.models.rep_anedotas import select_todas_anedotas, select_anedotas_por_categoria,select_anedota_por_id, select_anedotas_por_utilizador, insert_anedota
+from app.models.rep_anedotas import select_todas_anedotas, select_anedotas_por_categoria,select_anedota_por_id, select_anedotas_por_utilizador, insert_anedota, update_anedota
 from app.models.rep_categorias import select_categorias_e_quantas_anedotas
 from app.utils.datas import formatar_data_pt
 from app.utils.diversos import  preview
@@ -86,6 +86,11 @@ def adicionar_anedota(utilizador,texto,categoria):
 
 
 
+def editar_anedota(id,texto,categoria):
+    return update_anedota(id,texto,categoria)
+
+
+
 # para debug
 if __name__ == "__main__":
-    pprint(dash_board_categorias_anedotas())
+    pprint(detalhes_da_anedota(7))
