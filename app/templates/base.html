@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Anedotas{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/uteis.js') }}"></script>
 </head>
 <body>
 
@@ -67,6 +68,24 @@
         <p>© 2026 Anedotas - Todos os direitos reservados</p>
     </div>
 </footer>
+
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <h3>Confirmar eliminação</h3>
+        <br><br>
+        <p>Tens a certeza que queres eliminar esta anedota?</p>
+        <br><br>
+        <div class="modal-actions">
+            <form id="deleteForm" method="POST">
+                <button type="submit" class="btn btn-danger">Sim, eliminar</button>
+            </form>
+
+            <button class="btn btn-secondary" onclick="closeModal()">
+                Cancelar
+            </button>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

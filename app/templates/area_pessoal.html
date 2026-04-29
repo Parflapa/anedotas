@@ -33,7 +33,7 @@
                     <a href="{{ url_for('anedotas.editar', anedota_id=anedota.id) }}" title="Editar">
                         ✏️
                     </a>
-                    <a href="{{ url_for('anedotas.eliminar', anedota_id=anedota.id) }}" title="Eliminar">
+                    <a href="#" title="Eliminar" class="delete-btn" data-id="{{ anedota.id }}">
                         🗑️
                     </a>
                 </div>

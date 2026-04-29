@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
-from app.services.serv_anedotas import detalhes_da_anedota, dash_board_categorias_anedotas, adicionar_anedota, editar_anedota
+from app.services.serv_anedotas import detalhes_da_anedota, dash_board_categorias_anedotas, adicionar_anedota, editar_anedota, eliminar_anedota
 from app.services.serv_categorias import listar_categorias
 from app.utils.auth import login_required
 
 
-anedotas = Blueprint('anedotas', __name__)
+anedotas = Blueprint('anedotas', __name__, url_prefix="/anedotas")
 
 
 @anedotas.route("/")
@@ -36,7 +36,7 @@ def adicionar():
 
         if sucesso:
             flash("Anedota criada com sucesso!", "success")
-            return redirect(url_for("anedotas.dashboard"))
+            return redirect(url_for("utilizadores.area_pessoal"))
         else:
             flash("Erro ao criar anedota.", "error")
         
@@ -61,7 +61,7 @@ def editar(anedota_id):
 
         if sucesso:
             flash("Anedota editada com sucesso!", "success")
-            return redirect(url_for("anedotas.dashboard"))
+            return redirect(url_for("utilizadores.area_pessoal"))
         else:
             flash("Erro ao editar anedota.", "error")
 
@@ -73,7 +73,15 @@ def editar(anedota_id):
     return render_template("editar.html", dados=dados)
 
 
-@anedotas.route("/eliminar/<int:anedota_id>")
+@anedotas.route("/eliminar/<int:anedota_id>", methods=["POST"])
 @login_required
 def eliminar(anedota_id):
-    return render_template("eliminar.html")
+
+    sucesso = eliminar_anedota(anedota_id)
+
+    if sucesso:
+        flash("Anedota eliminada com sucesso!", "success")
+    else:
+        flash("Erro ao eliminar anedota.", "error")
+
+    return redirect(url_for("utilizadores.area_pessoal"))

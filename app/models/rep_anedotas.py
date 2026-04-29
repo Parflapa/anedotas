@@ -161,8 +161,6 @@ def select_anedota_por_id(anedota_id):
             cursor.close()
         if conexao:
             conexao.close()
-
-
     return resultado
 
 
@@ -192,7 +190,6 @@ def insert_anedota(autor, texto, categoria):
 def update_anedota(id, texto, categoria):
     conexao     = conectar_pymysql()
     cursor      = conexao.cursor()
-
     try:
         query   = """
         UPDATE anedotas 
@@ -212,6 +209,27 @@ def update_anedota(id, texto, categoria):
         if conexao:
             conexao.close()
 
+
+
+def delete_anedota(id):
+    conexao = conectar_pymysql()
+    cursor = conexao.cursor()
+    try:
+        query = """
+        DELETE FROM anedotas 
+        WHERE id_a = %s
+        """
+        cursor.execute(query, (id,))
+        conexao.commit()
+        return True
+    except Exception as e:
+        print(e)
+        return False
+    finally:
+        if cursor:
+            cursor.close()
+        if conexao:
+            conexao.close()
 
 
 if __name__ == "__main__":
