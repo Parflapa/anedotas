@@ -24,7 +24,8 @@ window.onclick = function(event) {
     }
 }
 
-window.onload = function() {
+
+window.addEventListener('DOMContentLoaded', function(){
     document.querySelectorAll(".delete-btn").forEach(btn => {
         btn.addEventListener("click", function (e) {
             e.preventDefault();
@@ -33,4 +34,4 @@ window.onload = function() {
             openModal(this.dataset.id);
         });
     });
-}
+});
