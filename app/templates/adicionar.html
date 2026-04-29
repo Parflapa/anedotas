@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Adicionar nova anedota{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Nova anedota</h2>
+
+    <form method="POST" action="{{ url_for('anedotas.adicionar') }}" class="form-card">
+
+        <div class="form-group">
+            <label for="anedota_id">Anedota</label>
+            <textarea name="ftexto" id="anedota_id" required placeholder="Escreve aqui a tua anedota..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="categoria_id">Categoria</label>
+            <select name="fcategoria" id="categoria_id" required>
+                <option value="" selected hidden disabled>Escolha uma categoria</option>
+                {% for categoria in categorias %}
+                    <option value="{{ categoria.id }}">{{ categoria.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-primary">Adicionar</button>
+        </div>
+
+    </form>
+</div>
+{% endblock %}

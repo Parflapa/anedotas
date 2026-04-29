@@ -1,0 +1,5 @@
+# Ambiente virtual
+venv/
+
+# Configurações locais/secretas
+.env

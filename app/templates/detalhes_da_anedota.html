@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Detalhes da anedota{% endblock %}
+
+{% block content %}
+    <h2>Anedota selecionada:</h2>
+    <br><br>
+    <div class="grid_card_anedota">
+        <p class="detalhes_da_anedota">{{ detalhes.anedota | replace('\n', '<br>') | safe }}</p>
+    </div>
+{% endblock %}

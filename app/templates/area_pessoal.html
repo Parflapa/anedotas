@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Minhas Anedotas{% endblock %}
+
+{% block content %}
+
+<div class="user-anedotas-container">
+
+    <div class="top-bar">
+        <h2>As minhas anedotas</h2>
+        <a href="{{ url_for('anedotas.adicionar') }}" class="btn-nova">
+            + Nova Anedota
+        </a>
+    </div>
+    <br><br>
+    <div class="lista-anedotas">
+
+        {% for anedota in detalhes.anedotas %}
+
+            <div class="linha-anedota">
+
+                <div class="conteudo">
+                    <a href="{{ url_for('anedotas.detalhes_anedota', anedota_id=anedota.id) }}">
+                        {{ anedota.preview }}
+                    </a>
+                </div>
+
+                <div class="meta">
+                    <span>📅 {{ anedota.data }}</span>
+                </div>
+
+                <div class="acoes">
+                    <a href="{{ url_for('anedotas.editar', anedota_id=anedota.id) }}" title="Editar">
+                        ✏️
+                    </a>
+                    <a href="{{ url_for('anedotas.eliminar', anedota_id=anedota.id) }}" title="Eliminar">
+                        🗑️
+                    </a>
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

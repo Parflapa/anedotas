@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h2>Bem-vindo</h2>
+<p>Escolhe uma categoria, ou carrega numa anedota, e começa a rir 😄</p>
+
+<section>
+    <img class="main_background" src="{{ url_for('static', filename='img/homepage_main_04.png') }}">
+</section>
+
+<div class="dashboard_e_listagens">
+
+    {% for categoria in anedotas_por_categoria %}
+        <section class="categoria">
+
+            <div class="categoria-header">
+                <a href="{{url_for('categorias.detalhes_categoria', categoria_id=categoria.id)}}"><h2>{{ categoria.nome }}</h2></a>
+                <span class="badge">{{ categoria.total_anedotas }}</span>
+            </div>
+            <div class="anedotas-grid">
+
+                {% for anedota in categoria.anedotas %}
+                    <article class="anedota-card">
+                        <p class="anedota-texto">
+                            <a href="{{ url_for('anedotas.detalhes_anedota', anedota_id=anedota.id) }}">
+                                {{ anedota.preview }}
+                            </a>
+                        </p>
+
+                        <div class="anedota-footer">
+                            <a class="nick_e_categoria" href="{{ url_for('utilizadores.detalhes_utilizador', utilizador_id=anedota.id_utilizador)}}">
+                                <span>👤 {{ anedota.nick }}</span>
+                            </a>
+                            <span class="data">📅 {{ anedota.data }}</span>
+                        </div>
+                    </article>
+                {% endfor %}
+
+            </div>
+
+        </section>
+    {% endfor %}
+
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Detalhes da anedota{% endblock %}
+
+{% block content %}
+    <h2>Escolhe um utilizador para começares a rir 😄</h2>
+    <br><br>
+    {% for categoria in lista_categorias %}
+        <div class="detalhes_da_categoria_e_utilizador">
+            <a href="{{url_for('utilizadores.detalhes_utilizador', utilizador_id= utilizador.id)}}">{{ utilizador.nick }}</a> 
+            <span class="badge"> {{ categoria.total_anedotas }}</span>
+        </div>
+    {% endfor %}
+{% endblock %}

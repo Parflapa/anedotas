@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Anedotas{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header>
+    <div class="container main-header">
+        <div>
+            <h1>😂 Anedotas do Dia</h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/aleatoria">Aleatória</a>
+                <a href="/top">Top</a>
+                <a href="/categorias">Categorias</a>
+            </nav>
+        </div>
+        <div id="login">
+            {% if session.get("id_utilizador") %}
+
+                <div class="user-info">
+                    <div>Olá, {{ session.get("nome_utilizador") }}</div>
+                    <div class="div-area-pessoal">
+                        <a class="area-pessoal" href="{{ url_for('utilizadores.area_pessoal') }}">Área pessoal</a>
+                        <a href="{{ url_for('autenticacao.logout') }}" class="logout-link">Logout</a>
+                    </div>
+                </div>
+
+            {% else %}
+
+                <form method="POST" action="{{ url_for('autenticacao.login') }}">
+                    <input type="text" name="user" placeholder="nick ou email">
+                    <input type="password" name="password" placeholder="password">
+                    <input type="submit" value="login">
+                </form>
+
+            {% endif %}
+        </div>
+    </div>
+</header>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash">
+      {% for categoria, mensagem in messages %}
+        <div class="flash-{{ categoria }}">
+          {{ mensagem }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<main class="dashboard_e_listagens container">
+    {% block content %}
+    <h2>Bem-vindo</h2>
+    <p>Escolhe uma anedota começa a rir 😄</p>
+    {% endblock %}
+</main>
+
+<footer>
+    <div class="container">
+        <p>© 2026 Anedotas - Todos os direitos reservados</p>
+    </div>
+</footer>
+
+</body>
+</html>

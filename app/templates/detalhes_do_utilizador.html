@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Anedotas de {{ detalhes['utilizador'] }} {% endblock %}
+
+{% block content %}
+    <h2>Utilizador: {{detalhes['utilizador']}}</h2>
+    <br><br>
+
+    <div class="anedotas-grid">
+        {% if detalhes['anedotas'] %}
+
+            {% for anedota in detalhes['anedotas'] %}
+            <article class="anedota-card">
+                <p class="anedota-texto">
+                    <a href="{{ url_for('anedotas.detalhes_anedota', anedota_id=anedota.id) }}">
+                        {{ anedota.preview }}
+                    </a>
+                </p>
+                <div class="anedota-footer">
+                    <a class="nick_e_categoria" href="{{ url_for('categorias.detalhes_categoria', categoria_id=anedota.id_categoria)}}">
+                        <span>🎙 {{ anedota.categoria }}</span>
+                    </a>
+                    <span class="data">📅 {{ anedota.data }}</span>
+                </div>
+            </article>
+            {% endfor %}
+
+        {% else %}
+            <p>Esta categoria ainda não tem nenhuma anedota</p>
+        {% endif %}
+    </div>
+
+{% endblock %}
