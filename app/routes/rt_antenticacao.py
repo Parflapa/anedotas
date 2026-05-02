@@ -2,7 +2,7 @@ from flask import Blueprint, request, session, redirect, url_for, flash
 from app.services.serv_utilizadores import validar_login
 
 
-autenticacao = Blueprint("autenticacao", __name__) 
+autenticacao = Blueprint("autenticacao", __name__, url_prefix="/autenticacao") 
 
 
 @autenticacao.route("/login", methods=["POST"])

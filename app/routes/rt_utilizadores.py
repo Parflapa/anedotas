@@ -3,15 +3,15 @@ from app.services.serv_utilizadores import listar_utilizadores, listar_todas_ane
 from app.utils.auth import login_required
 
 
-utilizadores = Blueprint('utilizadores', __name__)
+utilizadores = Blueprint('utilizadores', __name__, url_prefix="/utilizadores")
 
 
-@utilizadores.route("/utilizadores/")
+@utilizadores.route("/")
 def lista_utilizadores():
     return render_template("lista_utilizadores.html", lista_utilizadores = listar_utilizadores())
 
 
-@utilizadores.route("/utilizador/<int:utilizador_id>")
+@utilizadores.route("/<int:utilizador_id>")
 def detalhes_utilizador(utilizador_id):
     detalhes = listar_todas_anedotas_deste_utilizador(utilizador_id)
     return render_template("detalhes_do_utilizador.html", detalhes = detalhes)

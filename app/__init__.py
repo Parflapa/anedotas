@@ -1,5 +1,6 @@
-from flask import Flask, session   # classe usada para instanciar a aplicação web
+from flask import Flask, session, redirect   # classe usada para instanciar a aplicação web
 import os
+
 
 def criar_app():
     app = Flask(__name__)
@@ -14,6 +15,13 @@ def criar_app():
             "user_logado": session.get("user_id"),
             "username": session.get("username")
         }
+
+    # Necessário para utilização de prefix 
+    # rota de arranque (AQUI dentro, mas usando app)
+    @app.route("/")
+    def index():
+        return redirect("/anedotas/")
+
 
     # registar blueprints
     from app.routes.rt_anedotas import anedotas

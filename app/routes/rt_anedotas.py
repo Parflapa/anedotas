@@ -13,7 +13,7 @@ def dashboard():
     return render_template("home.html", anedotas_por_categoria=dados)
 
 
-@anedotas.route("/anedota/<int:anedota_id>")
+@anedotas.route("/<int:anedota_id>")
 def detalhes_anedota(anedota_id):
     detalhes = detalhes_da_anedota(anedota_id)
     return render_template("detalhes_da_anedota.html", detalhes=detalhes)
@@ -23,7 +23,7 @@ def detalhes_anedota(anedota_id):
 @login_required
 def adicionar():
     if request.method == "POST":
-        texto       = request.form.get("ftexto"),
+        texto       = request.form.get("ftexto")
         categoria   = request.form.get("fcategoria")
         utilizador  = session.get("id_utilizador")
 
