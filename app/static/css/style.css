@@ -76,6 +76,7 @@ main.container{
 
 main h2 {
     margin-bottom: 10px;
+    line-height: 40px;
 }
 
 main p {
@@ -158,7 +159,7 @@ footer {
 /* texto da anedota */
 .anedota-texto {
     margin: 0 0 10px 0;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.4;
 }
 .anedota-texto a {
@@ -168,9 +169,10 @@ footer {
 
 /* footer do card */
 .anedota-footer {
+    margin-top:40px;
     display: flex;
     justify-content: space-between;
-    font-size: 11px;
+    font-size: 16px;
     color: #666;
 }
 
@@ -203,6 +205,15 @@ footer {
     border-radius: 10px;
     padding:10px;
 }
+.top-detalhes{
+    font-size:12px;
+    font-style: italic;
+    color:#222;
+    margin-bottom:30px;
+}
+
+
+
 
 /* LOGIN */
 #login{

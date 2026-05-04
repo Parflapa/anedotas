@@ -3,9 +3,24 @@
 {% block title %}Detalhes da anedota{% endblock %}
 
 {% block content %}
-    <h2>Anedota selecionada:</h2>
+    <h2>Anedota selecionada (vista {{detalhes.visualizacoes}} vezes):</h2>
     <br><br>
-    <div class="grid_card_anedota">
-        <p class="detalhes_da_anedota">{{ detalhes.anedota | replace('\n', '<br>') | safe }}</p>
+    <div class="anedota-card">
+        <p class="anedota-texto">{{ detalhes.anedota | replace('\n', '<br>') | safe }}</p>
+        <div class="anedota-footer">
+            <a class="nick_e_categoria" href="{{ url_for('utilizadores.detalhes_utilizador', utilizador_id=detalhes.utilizador_id)}}">
+                <span>👤 {{ detalhes.nick }}</span>
+            </a>
+            <a class="nick_e_categoria" href="{{ url_for('categorias.detalhes_categoria', categoria_id=detalhes.categoria_id)}}">
+                <span>👤 {{ detalhes.categoria }}</span>
+            </a>
+            <span class="data">📅 {{ detalhes.data }}</span>
+            <!-- NOVO: botão de gosto -->
+            <p>
+                <a class="like-btn" href="{{ url_for('anedotas.votar', anedota_id=detalhes.anedota_id) }}" title="Votar nesta anedota">
+                    👍 
+                </a> (votada {{ detalhes.votos }} vezes)
+            </p>
+        </div>
     </div>
 {% endblock %}

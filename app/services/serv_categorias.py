@@ -14,9 +14,10 @@ def listar_categorias():
 
 
 def listar_todas_anedotas_desta_categoria(categoria_id):
-    """Devolve uma lista com 2 elementos:
-            o nome da categoria,
-            as anedotas da categoria
+    """Devolve uma lista com elementos:
+            o nome, e o id da categoria,
+            as anedotas da categoria,
+            em caso de erro: uma mensagem ou None
 
     Args:
         categoria_id (int): id da categoria
@@ -32,8 +33,9 @@ def listar_todas_anedotas_desta_categoria(categoria_id):
     
     resultado = {
         "categoria"     : categoria_nome,
-        "anedotas"      : anedotas,
+        "categoria_id"  : categoria_id,
         "mensagem"      : None if anedotas else f"Não há anedotas da categoria {categoria_nome}",
+        "anedotas"      : anedotas,
     }
     return resultado
 

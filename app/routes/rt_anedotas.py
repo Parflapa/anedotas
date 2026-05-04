@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
-from app.services.serv_anedotas import detalhes_da_anedota, dash_board_categorias_anedotas, adicionar_anedota, editar_anedota, eliminar_anedota
+from app.services.serv_anedotas import detalhes_da_anedota, dash_board_categorias_anedotas, adicionar_anedota, editar_anedota, eliminar_anedota, votar_nesta_anedota, mais_uma_visualizacao_nesta_anedota, listar_anedotas, anedota_aleatoria
 from app.services.serv_categorias import listar_categorias
 from app.utils.auth import login_required
 
@@ -15,6 +15,8 @@ def dashboard():
 
 @anedotas.route("/<int:anedota_id>")
 def detalhes_anedota(anedota_id):
+    # adicionar visualização
+    mais_uma_visualizacao_nesta_anedota(anedota_id)
     detalhes = detalhes_da_anedota(anedota_id)
     return render_template("detalhes_da_anedota.html", detalhes=detalhes)
 
@@ -76,12 +78,36 @@ def editar(anedota_id):
 @anedotas.route("/eliminar/<int:anedota_id>", methods=["POST"])
 @login_required
 def eliminar(anedota_id):
-
     sucesso = eliminar_anedota(anedota_id)
-
     if sucesso:
         flash("Anedota eliminada com sucesso!", "success")
     else:
         flash("Erro ao eliminar anedota.", "error")
 
     return redirect(url_for("utilizadores.area_pessoal"))
+
+
+@anedotas.route("/votar/<int:anedota_id>", methods=["GET"])
+def votar(anedota_id):
+    sucesso = votar_nesta_anedota(anedota_id)
+    if sucesso:
+        flash("Voto atribuído com sucesso.", "success")
+    else:
+        flash("Erro na votação.", "error")
+
+    detalhes = detalhes_da_anedota(anedota_id)
+    return render_template("detalhes_da_anedota.html", detalhes=detalhes)
+
+
+@anedotas.route("/top")
+def top():
+    top = listar_anedotas("top")
+    return render_template("top_anedotas.html", lista=top)
+
+
+@anedotas.route("/aleatoria")
+def aleatoria():
+    detalhes = anedota_aleatoria()
+    return render_template("detalhes_da_anedota.html", detalhes=detalhes)
+
+

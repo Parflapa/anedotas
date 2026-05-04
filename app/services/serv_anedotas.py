@@ -1,24 +1,34 @@
-from app.models.rep_anedotas import select_todas_anedotas, select_anedotas_por_categoria,select_anedota_por_id, select_anedotas_por_utilizador, insert_anedota, update_anedota, delete_anedota
+from app.models.rep_anedotas import select_todas_anedotas, select_anedotas_por_categoria,select_anedota_por_id, select_anedotas_por_utilizador, insert_anedota, update_anedota, delete_anedota, update_anedota_add_voto, update_anedota_add_visualizacao, select_anedota_aleatoria
 from app.models.rep_categorias import select_categorias_e_quantas_anedotas
 from app.utils.datas import formatar_data_pt
 from app.utils.diversos import  preview
 from pprint import pprint
 
-def listar_anedotas():
+def listar_anedotas(tipo="atual"):
     """
-    Lista anedotas com preview
+    Lista anedotas com preview 
+    Argument: top (lista anedotas mais recentes ou lista de anedotas mais votadas - TOP)
 
     Returns:
         List[Dictionary]
     """
-    lista_anedotas  = select_todas_anedotas()
-    resultado       = {}
+    lista_anedotas  = select_todas_anedotas(tipo)
+    lista_final     = [] 
     for anedota in lista_anedotas:
-        preview = anedota['texto_a'][0:40] + "..."
-        resultado['anedota'] = anedota['texto_a']
-        resultado['preview'] = preview
+        resultado                   = {}
+        resultado['anedota_id']     = anedota['id_a']
+        resultado['anedota']        = anedota['texto_a']
+        resultado['preview']        = anedota['texto_a'][0:40] + "..."
+        resultado['utilizador']     = anedota['nick_u']
+        resultado['utilizador_id']  = anedota['utilizador_a']
+        resultado['categoria']      = anedota['nome_c']
+        resultado['categoria_id']   = anedota['categoria_a'] 
+        resultado['visualizacoes']  = anedota['visualizacoes_a'] 
+        resultado['votos']          = anedota['votos_a']      
+        resultado['data']           = formatar_data_pt(anedota['data_a'])
+        lista_final.append(resultado)
 
-    return resultado
+    return lista_final
 
 
 
@@ -80,7 +90,6 @@ def detalhes_da_anedota(anedota_id):
     return detalhes
 
 
-
 def adicionar_anedota(utilizador,texto,categoria):
     return insert_anedota(utilizador,texto,categoria)
 
@@ -94,6 +103,22 @@ def eliminar_anedota(id):
     return delete_anedota(id)
 
 
+def votar_nesta_anedota(id):
+    return update_anedota_add_voto(id)
+
+
+def mais_uma_visualizacao_nesta_anedota(id):
+    #return update_anedota_add_visualizacao(id)
+    update_anedota_add_visualizacao(id)
+
+
+def anedota_aleatoria():
+    id_aleatorio = select_anedota_aleatoria()
+    detalhes = detalhes_da_anedota(id_aleatorio)
+    return detalhes
+
+
+
 # para debug
 if __name__ == "__main__":
-    pprint(detalhes_da_anedota(7))
+    pprint(anedota_aleatoria())

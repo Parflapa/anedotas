@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}TOP anedotas{% endblock %}
+
+{% block content %}
+    <h2>Este top é resultado da votação dos nossos visitantes.<br>Vote você também!</h2>
+    <br><br>
+
+    <section class="categoria">
+
+        {% for anedota in lista %}
+            <article class="anedota-card">
+                <p class="top-detalhes"><span>{{anedota.votos}} votos</span></p>
+                <p class="anedota-texto">
+                    <a href="{{ url_for('anedotas.detalhes_anedota', anedota_id=anedota.anedota_id) }}">
+                        {{ anedota.preview }}
+                    </a>
+                </p>
+
+                <div class="anedota-footer">
+                    <a class="nick_e_categoria" href="{{ url_for('utilizadores.detalhes_utilizador', utilizador_id=anedota.utilizador_id)}}">
+                        <span>👤 {{ anedota.utilizador }}</span>
+                    </a>
+                    <span class="data">📅 {{ anedota.data }}</span>
+                </div>
+            </article>
+            <br><br><br>
+        {% endfor %}
+
+    </section>
+
+{% endblock %}
