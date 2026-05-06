@@ -1,4 +1,4 @@
-from app.models.rep_utilizadores import select_utilizadores_e_quantas_anedotas, select_nick_do_utilizador, validar_dados_de_login
+from app.models.rep_utilizadores import select_utilizadores_e_quantas_anedotas, select_nick_do_utilizador, validar_dados_de_login, insert_utilizador
 from app.models.rep_anedotas import select_anedotas_por_utilizador
 from app.utils.diversos import preview
 from pprint import pprint
@@ -97,5 +97,12 @@ def listar_passes():
 
 
 
+def registar_utilizador(nome, email, nick, pais, password):
+    password_encriptada = generate_password_hash(password)
+    return insert_utilizador(nome, email, nick, pais, password_encriptada)
+
+
+
+
 if __name__ == "__main__":
-    pprint(listar_todas_anedotas_deste_utilizador(1))
+    pprint(registar_utilizador("Pedro", "lapa.pedro@gmail.com", "Adremek", "Portugal", "ABCDADOSFICTICIOS"))

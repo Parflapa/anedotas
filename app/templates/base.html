@@ -14,7 +14,8 @@
         <div>
             <h1>😂 Anedotas do Dia</h1>
             <nav>
-                <a href="/">Home</a>
+                <!-- <a href="/">Home</a> -->
+                <a href="{{url_for('anedotas.dashboard')}}">Home</a>
                 <a href="{{url_for('anedotas.aleatoria')}}">Aleatória</a>
                 <a href="{{url_for('anedotas.top')}}">Top</a>
                 <a href="/categorias">Categorias</a>
@@ -32,12 +33,16 @@
                 </div>
 
             {% else %}
-
-                <form method="POST" action="{{ url_for('autenticacao.login') }}">
-                    <input type="text" name="user" placeholder="nick ou email">
-                    <input type="password" name="password" placeholder="password">
-                    <input type="submit" value="login">
-                </form>
+                <div id="div-logar">
+                    <form method="POST" action="{{ url_for('autenticacao.login') }}">
+                        <input type="text" name="user" placeholder="nick ou email">
+                        <input type="password" name="password" placeholder="password">
+                        <input type="submit" value="login">
+                    </form>
+                </div>
+                <div id="div-registar">
+                    Ainda não tem conta, <a href="{{ url_for('utilizadores.registo') }}">crie uma aqui.</a>
+                </div>
 
             {% endif %}
         </div>
@@ -69,18 +74,22 @@
     </div>
 </footer>
 
-<div id="deleteModal" class="modal">
+<div id="janelaModal" class="modal">
     <div class="modal-content">
         <h3>Confirmar eliminação</h3>
         <br><br>
-        <p>Tens a certeza que queres eliminar esta anedota?</p>
+        <p id="textoJanelaModal"></p>
         <br><br>
         <div class="modal-actions">
             <form id="deleteForm" method="POST">
-                <button type="submit" class="btn btn-danger">Sim, eliminar</button>
+                <button type="submit" class="btn btn-danger">Sim, eliminar.</button>
             </form>
 
-            <button class="btn btn-secondary" onclick="closeModal()">
+            <button id="bt-modal-ok" class="btn btn-secondary" onclick="closeModal()">
+                OK
+            </button>
+
+            <button id="bt-modal-cancelar" class="btn btn-secondary" onclick="closeModal()">
                 Cancelar
             </button>
         </div>

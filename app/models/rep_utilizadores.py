@@ -125,13 +125,11 @@ def validar_dados_de_login(nick_ou_email):
             "email_u": resultado["email_u"],
             "password_u": resultado["password_u"]
         }
-
     except Exception as e:
         return {
             "mensagem": "Erro na base de dados.",
             "erro": str(e)
         }
-
     finally:
         if cursor:
             cursor.close()
@@ -139,5 +137,27 @@ def validar_dados_de_login(nick_ou_email):
             conexao.close()
 
 
+
+def insert_utilizador(nome, email, nick, pais, password):
+    conexao = conectar_pymysql()
+    cursor  = conexao.cursor()
+
+    try:
+        query = "INSERT INTO utilizadores (nome_u, email_u, nick_u, pais_u, password_u) VALUES (%s,%s,%s,%s,%s)"
+        cursor.execute(query,(nome, email, nick, pais, password))
+        conexao.commit()
+        return True
+    except Exception as e:
+        print(e)
+        return False
+    finally:
+        if cursor:
+            cursor.close()
+        if conexao:
+            conexao.close()
+    
+
+
+
 if __name__ == "__main__":
-    pprint(select_nick_do_utilizador(1))
+    pprint(select_todos_utilizadores())

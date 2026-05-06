@@ -4,6 +4,7 @@
   --alturaDaLinha_Anedota: 30px; /* global scope */
   --corLinkAmarelo: #ffd500;
   --corLinkAmareloHover: #e7e6c3;
+  --corLinkAmareloHover2:rgb(232, 221, 145);
 }
 
 * {
@@ -218,8 +219,15 @@ footer {
 /* LOGIN */
 #login{
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+}
+#login #div-logar{
+    margin-top:30px;
+}
+#login #div-registar{
+    margin-top:10px;
+    font-size: 0.9rem;
 }
 #login input{
     display: inline-block;
@@ -408,6 +416,10 @@ footer {
 }
 
 /* inputs */
+.form-group label{
+    margin-top:15px;
+}
+.form-group input,
 .form-group textarea,
 .form-group select {
     padding: 10px;
@@ -480,4 +492,13 @@ footer {
     margin-top: 20px;
     display: flex;
     justify-content: space-around;
+}
+
+#div-registar a {
+    color: var(--corLinkAmareloHover2);
+    transition: color 0.2s;
+}
+
+#div-registar a:hover {
+    color: var(--corLinkAmarelo);
 }

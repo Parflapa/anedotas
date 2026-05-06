@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Adicionar nova anedota{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Novo utilizador</h2>
+
+    <form method="POST" action="{{ url_for('utilizadores.registo') }}" onsubmit="return verifica_passwords_iguais()" class="form-card">
+
+        <div class="form-group">
+            <label for="nome_id">Nome </label>
+            <input type="text" name="fnome" id="nome_id" required>
+            <label for="nick_id">Nick </label>
+            <input type="text" name="fnick" id="nick_id" required>
+            <label for="email_id">Email </label>
+            <input type="email" name="femail" id="email_id" required>
+            <label for="pass1_id">Password </label>
+            <input type="password" name="fpass1" id="pass1_id" required>
+            <label for="pass2_id">Repita a password </label>
+            <input type="password" name="fpass2" id="pass2_id" required>
+
+            <label for="pais_id">Categoria</label>
+            <select name="fpais" id="pais_id" required>
+                <option value="" selected hidden disabled>Escolha um país</option>
+                {% for pais in paises %}
+                    <option value="{{ pais.id }}">{{ pais.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-primary">Registar</button>
+        </div>
+
+    </form>
+</div>
+{% endblock %}
