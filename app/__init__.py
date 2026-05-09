@@ -1,4 +1,4 @@
-from flask import Flask, session, redirect, url_for   # classe usada para instanciar a aplicação web
+from flask import Flask, session   # classe usada para instanciar a aplicação web
 import os
 
 
@@ -7,6 +7,8 @@ def criar_app():
 
     app.config['SECRET_KEY'] = os.environ.get('SK', 'dev-inseguro')
 
+    # context_processor é uma função de injeção de variáveis para templates Jinja.
+    # é executado APENAS quando um template é renderizado
     @app.context_processor
     def inject_user():
         return {
