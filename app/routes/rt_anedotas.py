@@ -5,6 +5,7 @@ from app.utils.auth import login_required
 
 
 anedotas = Blueprint('anedotas', __name__, url_prefix="/anedotas")
+# anedotas = Blueprint('anedotas', __name__)
 
 
 @anedotas.route("/")
