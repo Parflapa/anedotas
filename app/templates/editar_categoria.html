@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Editar categoria{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Editar anedota</h2>
+
+    <form method="POST" action="{{ url_for('categorias.editar',categoria_id=dados.id) }}" class="form-card">
+
+        <div class="form-group">
+            <label for="categoria_id">Categoria</label>
+            <input type="text" name="fnome" id="categoria_id" required value="{{ dados.nome}}"">
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-primary">Editar</button>
+        </div>
+
+    </form>
+</div>
+{% endblock %}

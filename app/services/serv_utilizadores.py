@@ -76,7 +76,8 @@ def validar_login(nick_ou_email, password):
                 "id": dados["id_u"],
                 "nome": dados["nome_u"],
                 "nick": dados["nick_u"],
-                "email": dados["email_u"]
+                "email": dados["email_u"],
+                "nivel": dados["nivel_u"]
             }
         }
 
@@ -99,7 +100,7 @@ def listar_passes():
 
 def registar_utilizador(nome, email, nick, pais, password):
     password_encriptada = generate_password_hash(password)
-    return insert_utilizador(nome, email, nick, pais, password_encriptada)
+    return insert_utilizador(nome, email, nick, pais, password_encriptada, 1)
 
 
 

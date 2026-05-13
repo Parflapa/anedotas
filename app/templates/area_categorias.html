@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Categorias{% endblock %}
+
+{% block content %}
+
+<div class="user-anedotas-container">
+
+    <div class="top-bar">
+        <h2>Categorias</h2>
+        <a href="{{ url_for('categorias.adicionar') }}" class="btn-nova">
+            + Nova Categoria
+        </a>
+    </div>
+    <br><br>
+    <div class="lista-anedotas">
+
+        {% for categoria in lista_categorias %}
+
+            <div class="linha-anedota">
+
+                <div class="conteudo">
+                    {{ categoria.nome }}
+                </div>
+
+
+                <div class="acoes">
+                    <a href="{{ url_for('categorias.editar', categoria_id=categoria.id) }}" title="Editar">
+                        ✏️
+                    </a>
+                    <a href="#" title="Eliminar" class="delete-btn" data-id="{{ categoria.id }}" data-entidade="categoria">
+                        🗑️
+                    </a>
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

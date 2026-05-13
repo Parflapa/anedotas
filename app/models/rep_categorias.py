@@ -91,5 +91,105 @@ def select_nome_da_categoria(categoria_id):
     return resultado['nome_c']     # type:ignore
 
 
+def select_categoria_por_id(categoria_id):
+    """ Pesquisa uma categoria pelo id e devolve todos os dados
+
+    Args:
+        categoria_id (int): _description_
+
+    Returns:
+        Dictionary: _description_
+    """    
+    conexao     = conectar_pymysql()
+    cursor      = conexao.cursor()
+
+    try:
+        query   = """
+        SELECT id_c AS id, nome_c AS nome 
+        FROM categorias
+        WHERE id_c = %s"""
+        cursor.execute(query,(categoria_id,))
+        resultado   = cursor.fetchone()
+    except Exception as e:
+        print(e)
+        resultado = []
+    finally:
+        if cursor:
+            cursor.close()
+        if conexao:
+            conexao.close()
+
+    return resultado
+
+
+def insert_categoria(nome):
+    conexao     = conectar_pymysql()
+    cursor      = conexao.cursor()
+
+    try:
+        query   = """
+        INSERT INTO categorias (nome_c)
+        VALUES (%s)
+        """
+        cursor.execute(query,(nome,))
+        conexao.commit()
+        return True
+    except Exception as e:
+        print(e)
+        conexao.rollback()
+        return False
+    finally:
+        if cursor:
+            cursor.close()
+        if conexao:
+            conexao.close()
+
+
+def update_categoria(id, nome):
+    conexao     = conectar_pymysql()
+    cursor      = conexao.cursor()
+    try:
+        query   = """
+        UPDATE categorias 
+        SET nome_c=%s
+        WHERE id_c=%s
+        """
+        cursor.execute(query,(nome, id))
+        conexao.commit()
+        return True
+    except Exception as e:
+        print(e)
+        conexao.rollback()
+        return False
+    finally:
+        if cursor:
+            cursor.close()
+        if conexao:
+            conexao.close()
+
+
+
+def delete_categoria(id):
+    conexao = conectar_pymysql()
+    cursor = conexao.cursor()
+    try:
+        query = """
+        DELETE FROM categorias 
+        WHERE id_c = %s
+        """
+        cursor.execute(query, (id,))
+        conexao.commit()
+        return True
+    except Exception as e:
+        print(e)
+        return False
+    finally:
+        if cursor:
+            cursor.close()
+        if conexao:
+            conexao.close()
+
+
+
 if __name__ == "__main__":
     pprint(select_categorias_e_quantas_anedotas())

@@ -1,4 +1,4 @@
-from app.models.rep_categorias import select_categorias_e_quantas_anedotas, select_nome_da_categoria
+from app.models.rep_categorias import select_categorias_e_quantas_anedotas, select_nome_da_categoria, insert_categoria, update_categoria, delete_categoria, select_categoria_por_id
 from app.models.rep_anedotas import select_anedotas_por_categoria
 from app.utils.diversos import  preview
 from pprint import pprint
@@ -11,6 +11,10 @@ def listar_categorias():
     """    
     lista_categorias  = select_categorias_e_quantas_anedotas()
     return lista_categorias 
+
+
+def dados_da_categoria(id):
+    return select_categoria_por_id(id)
 
 
 def listar_todas_anedotas_desta_categoria(categoria_id):
@@ -40,9 +44,21 @@ def listar_todas_anedotas_desta_categoria(categoria_id):
     return resultado
 
 
+def adicionar_categoria(nome):
+    return insert_categoria(nome)
+
+
+
+def editar_categoria(id,nome):
+    return update_categoria(id,nome)
+
+
+def eliminar_categoria(id):
+    return delete_categoria(id)
+
 
 
 
 
 if __name__ == "__main__":
-    pprint(listar_todas_anedotas_desta_categoria(1))
+    pprint(dados_da_categoria(1))

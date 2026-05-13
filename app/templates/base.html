@@ -28,6 +28,9 @@
                     <div>Olá, {{ session.get("nome_utilizador") }}</div>
                     <div class="div-area-pessoal">
                         <a class="area-pessoal" href="{{ url_for('utilizadores.area_pessoal') }}">Área pessoal</a>
+                        {% if session.get("nivel_utilizador") == 2 %}
+                            <a class="area-pessoal" href="{{url_for('categorias.area_categorias')}}">Categorias</a>
+                        {% endif %}
                         <a href="{{ url_for('autenticacao.logout') }}" class="logout-link">Logout</a>
                     </div>
                 </div>

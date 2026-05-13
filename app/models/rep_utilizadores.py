@@ -106,7 +106,7 @@ def validar_dados_de_login(nick_ou_email):
     cursor = conexao.cursor()
 
     query = """
-        SELECT id_u, nome_u, nick_u, email_u, password_u
+        SELECT id_u, nome_u, nick_u, email_u, password_u, nivel_u
         FROM utilizadores
         WHERE nick_u = %s OR email_u = %s
     """
@@ -123,7 +123,8 @@ def validar_dados_de_login(nick_ou_email):
             "nome_u": resultado["nome_u"],
             "nick_u": resultado["nick_u"],
             "email_u": resultado["email_u"],
-            "password_u": resultado["password_u"]
+            "password_u": resultado["password_u"],
+            "nivel_u": resultado["nivel_u"]
         }
     except Exception as e:
         return {
@@ -138,13 +139,13 @@ def validar_dados_de_login(nick_ou_email):
 
 
 
-def insert_utilizador(nome, email, nick, pais, password):
+def insert_utilizador(nome, email, nick, pais, password, nivel):
     conexao = conectar_pymysql()
     cursor  = conexao.cursor()
 
     try:
-        query = "INSERT INTO utilizadores (nome_u, email_u, nick_u, pais_u, password_u) VALUES (%s,%s,%s,%s,%s)"
-        cursor.execute(query,(nome, email, nick, pais, password))
+        query = "INSERT INTO utilizadores (nome_u, email_u, nick_u, pais_u, password_u, nivel_u) VALUES (%s,%s,%s,%s,%s)"
+        cursor.execute(query,(nome, email, nick, pais, password, nivel))
         conexao.commit()
         return True
     except Exception as e:

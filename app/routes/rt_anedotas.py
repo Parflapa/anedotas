@@ -44,7 +44,7 @@ def adicionar():
         
 
     categorias  = listar_categorias()
-    return render_template("adicionar.html", categorias=categorias)
+    return render_template("adicionar_anedota.html", categorias=categorias)
 
 
 @anedotas.route("/editar/<int:anedota_id>", methods=["GET", "POST"])
@@ -72,7 +72,7 @@ def editar(anedota_id):
         "anedota"       : detalhes_da_anedota(anedota_id),
         "categorias"    : listar_categorias()
     }
-    return render_template("editar.html", dados=dados)
+    return render_template("editar_anedota.html", dados=dados)
 
 
 @anedotas.route("/eliminar/<int:anedota_id>", methods=["POST"])

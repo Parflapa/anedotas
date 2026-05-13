@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Adicionar nova categoria{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Nova categoria</h2>
+
+    <form method="POST" action="{{ url_for('categorias.adicionar') }}" class="form-card">
+
+        <div class="form-group">
+            <label for="categoria_id">Nome para a categoria</label>
+            <input type="text" name="fnome" id="categoria_id" required>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-primary">Adicionar</button>
+        </div>
+
+    </form>
+</div>
+{% endblock %}

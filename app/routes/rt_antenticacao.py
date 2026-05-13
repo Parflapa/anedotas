@@ -16,6 +16,7 @@ def login():
         session["nome_utilizador"]  = user["nome"]
         session["nick_utilizador"]  = user["nick"]
         session["email_utilizador"] = user["email"]
+        session["nivel_utilizador"] = user["nivel"]
         flash("Login efetuado com sucesso.", "success")
     else:
         flash(resultado["mensagem"], "error")

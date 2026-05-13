@@ -3,7 +3,7 @@
  * @param {string} tipo "password_diferentes" ou "delete" 
  * @param {*} id 
  */
-function openModal(tipo="delete",id=null) {
+function openModal(tipo="delete",id=null,entidade=null) {
     const modal             = document.getElementById("janelaModal");
     const form              = document.getElementById("deleteForm");
     let p                   = document.getElementById("textoJanelaModal");
@@ -18,8 +18,15 @@ function openModal(tipo="delete",id=null) {
             bt_modal_cancelar.style.display = "none";
             break;
         case "delete":
-            form.action = `/anedotas/eliminar/${id}`;
-            p.innerText = "Tem a certeza que deseja eliminar esta anedota?";
+            switch(entidade){
+                case "anedota":
+                    form.action = `/anedotas/eliminar/${id}`;
+                    break;
+                case "categoria":
+                    form.action = `/categorias/eliminar/${id}`;
+                    break;
+            }
+            p.innerText = `Tem a certeza que deseja eliminar esta ${entidade}?`;
             bt_modal_ok.style.display = "none";
 
             break;
@@ -64,7 +71,7 @@ window.addEventListener('DOMContentLoaded', function(){
             e.preventDefault();
             /* console.log(btn);
             console.log("Aqui"); */
-            openModal("delete",this.dataset.id);
+            openModal("delete",this.dataset.id,this.dataset.entidade);
         });
     });
 });
