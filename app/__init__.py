@@ -17,13 +17,11 @@ def criar_app():
         }
 
     # importar e registar blueprints no fim
-    from app.routes.rt_core import core
     from app.routes.rt_anedotas import anedotas
     from app.routes.rt_categorias import categorias
     from app.routes.rt_utilizadores import utilizadores
     from app.routes.rt_antenticacao import autenticacao
 
-    app.register_blueprint(core)
     app.register_blueprint(anedotas)
     app.register_blueprint(categorias)
     app.register_blueprint(utilizadores)
