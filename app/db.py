@@ -1,5 +1,21 @@
+from dotenv import load_dotenv
+import os
+import pymysql           # type:ignore
 # import mysql.connector
-import pymysql              # type:ignore
+load_dotenv()
+
+def conectar_pymysql():
+    conexao = pymysql.connect(
+        host        = str(os.getenv("DB_HOST")),
+        user        = str(os.getenv("DB_USER")),
+        password    = str(os.getenv("DB_PASSWORD")),
+        database    = str(os.getenv("DB_NAME")),
+        autocommit  = False,
+        cursorclass = pymysql.cursors.DictCursor
+    )
+    return conexao
+
+
 
 """ def conectar_connector():
     return mysql.connector.connect(
@@ -11,13 +27,3 @@ import pymysql              # type:ignore
     )
  """
 
-def conectar_pymysql():
-    conexao =  pymysql.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="anedotas",
-        autocommit=False,  # importante
-        cursorclass=pymysql.cursors.DictCursor  # dicionário
-    )
-    return conexao
