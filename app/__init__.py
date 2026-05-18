@@ -1,5 +1,7 @@
 from flask import Flask, session   # classe usada para instanciar a aplicação web
 import os
+from dotenv import load_dotenv
+load_dotenv("/var/www/vhosts/websis.pt/credenciais/crd_anedotas")
 
 
 def criar_app():

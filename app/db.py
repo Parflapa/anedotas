@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 import os
 import pymysql           # type:ignore
 # import mysql.connector
-load_dotenv()
+load_dotenv("/var/www/vhosts/websis.pt/credenciais/crd_anedotas")
 
 def conectar_pymysql():
     conexao = pymysql.connect(
