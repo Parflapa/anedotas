@@ -144,7 +144,7 @@ def insert_utilizador(nome, email, nick, pais, password, nivel):
     cursor  = conexao.cursor()
 
     try:
-        query = "INSERT INTO utilizadores (nome_u, email_u, nick_u, pais_u, password_u, nivel_u) VALUES (%s,%s,%s,%s,%s)"
+        query = "INSERT INTO utilizadores (nome_u, email_u, nick_u, pais_u, password_u, nivel_u) VALUES (%s,%s,%s,%s,%s,%s)"
         cursor.execute(query,(nome, email, nick, pais, password, nivel))
         conexao.commit()
         return True

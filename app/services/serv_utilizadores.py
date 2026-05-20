@@ -130,7 +130,7 @@ def enviar_email_confirmacao(user_email):
         'email' : user_email
     }
     token = s.dumps(dados_para_token, salt='confirmar-email')
-    url = url_for('confirmacao', token=token, _external=True)
+    url = url_for('utilizadores.confirmacao', token=token, _external=True)
 
     with open('email_confirmacao.html') as f:
         html = f.read().replace('{{ url_confirmacao }}', url)
