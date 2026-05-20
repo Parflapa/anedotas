@@ -106,9 +106,9 @@ def validar_dados_de_login(nick_ou_email):
     cursor = conexao.cursor()
 
     query = """
-        SELECT id_u, nome_u, nick_u, email_u, password_u, nivel_u
+        SELECT id_u, nome_u, nick_u, email_u, password_u, nivel_u, confirmado_u
         FROM utilizadores
-        WHERE nick_u = %s OR email_u = %s
+        WHERE confirmado_u = 1 AND (nick_u = %s OR email_u = %s)
     """
 
     try:
@@ -158,6 +158,43 @@ def insert_utilizador(nome, email, nick, pais, password, nivel):
             conexao.close()
     
 
+
+def update_confirmar_registo(email):
+    conexao = conectar_pymysql()
+    cursor  = conexao.cursor()
+
+    try:
+        query = "UPDATE utilizadores SET confirmado_u = 1 WHERE email_u = %s"
+        cursor.execute(query,(email,))
+        conexao.commit()
+        return True
+    except Exception as e:
+        print(e)
+        return False
+    finally:
+        if cursor:
+            cursor.close()
+        if conexao:
+            conexao.close()
+
+
+def user_tem_registo_pendente(utilizador_id):
+    conexao = conectar_pymysql()
+    cursor  = conexao.cursor()
+
+    try:
+        query = "SELECT datahora_u FROM utilizadores WHERE id_u = %s AND confirmado_u=0"
+        cursor.execute(query,(utilizador_id,))
+        resultado = cursor.fetchone()
+        return resultado
+    except Exception as e:
+        print(e)
+        return []
+    finally:
+        if cursor:
+            cursor.close()
+        if conexao:
+            conexao.close()
 
 
 if __name__ == "__main__":

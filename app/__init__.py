@@ -1,6 +1,7 @@
 from flask import Flask, session   # classe usada para instanciar a aplicação web
 import os
 from dotenv import load_dotenv
+from app.utils.extensoes import mail
 load_dotenv("/var/www/vhosts/websis.pt/credenciais/crd_anedotas")
 
 
@@ -8,6 +9,19 @@ def criar_app():
     app = Flask(__name__)
 
     app.config['SECRET_KEY'] = os.environ.get('SK', 'dev-inseguro')
+
+
+    # mail config
+    app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER')
+    app.config['MAIL_PORT'] = os.environ.get('MAIL_PORT')
+    app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+    app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+    app.config['MAIL_USE_SSL'] = True
+    app.config['MAIL_USE_TLS'] = False
+    app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME')
+
+    mail.init_app(app)
+
 
     # context_processor é uma função de injeção de variáveis para templates Jinja.
     # é executado APENAS quando um template é renderizado

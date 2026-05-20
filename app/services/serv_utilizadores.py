@@ -1,9 +1,14 @@
-from app.models.rep_utilizadores import select_utilizadores_e_quantas_anedotas, select_nick_do_utilizador, validar_dados_de_login, insert_utilizador
+from app.models.rep_utilizadores import select_utilizadores_e_quantas_anedotas, select_nick_do_utilizador, validar_dados_de_login, insert_utilizador, update_confirmar_registo, user_tem_registo_pendente
 from app.models.rep_anedotas import select_anedotas_por_utilizador
 from app.utils.diversos import preview
 from pprint import pprint
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from flask import url_for
+from flask_mail import Message, mail
+from itsdangerous import URLSafeTimedSerializer
+from app import criar_app
+app = criar_app()
 
 def listar_utilizadores():
     """Lista os utilizadores existentes e informa o número de anedotas dos mesmos
@@ -100,9 +105,43 @@ def listar_passes():
 
 def registar_utilizador(nome, email, nick, pais, password):
     password_encriptada = generate_password_hash(password)
-    return insert_utilizador(nome, email, nick, pais, password_encriptada, 1)
+    insercao = insert_utilizador(nome, email, nick, pais, password_encriptada, 1)
+    
+    if insercao:
+        enviar_email_confirmacao(email)
+        return True
+    else:
+        return False
 
 
+
+def confirmar_registo(email):
+    return update_confirmar_registo(email)
+
+
+
+def enviar_email_confirmacao(user_email):
+    # criar um objeto serializer da biblioteca itsdangerous (criar tokens assinados, validar tokens, definir tempo de expiração)
+    # usa internamente a chave secreta Flask que assina criptograficamente o token e impede alguém de fabricar tokens falsos 
+    # sem a SECRET_KEY correta o token não pode ser validado.
+    # O que é URLSafeTimedSerializer: URLSafe (token é seguro para usar num URL: sem espaços, sem caracteres problemáticos, próprio para links de email)
+    s = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+    dados_para_token = {
+        'email' : user_email
+    }
+    token = s.dumps(dados_para_token, salt='confirmar-email')
+    url = url_for('confirmacao', token=token, _external=True)
+
+    with open('email_confirmacao.html') as f:
+        html = f.read().replace('{{ url_confirmacao }}', url)
+
+    msg = Message('Confirma a tua conta', recipients=[user_email])
+    msg.html = html
+    mail.send(msg)
+
+
+def verificar_token_registo(utilizador_id):
+    return user_tem_registo_pendente(utilizador_id)
 
 
 if __name__ == "__main__":

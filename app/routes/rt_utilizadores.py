@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, session, redirect, url_for, request, flash
-from app.services.serv_utilizadores import listar_utilizadores, listar_todas_anedotas_deste_utilizador, registar_utilizador  # type:ignore
+from app.services.serv_utilizadores import listar_utilizadores, listar_todas_anedotas_deste_utilizador, registar_utilizador, confirmar_registo  # type:ignore
 from app.services.serv_paises import listar_paises
 from app.utils.auth import login_required
-
+from itsdangerous import URLSafeTimedSerializer
+from run import app
 
 utilizadores = Blueprint('utilizadores', __name__, url_prefix="/utilizadores")
 
@@ -34,19 +35,55 @@ def area_pessoal():
 @utilizadores.route("/registo", methods=["GET","POST"])
 def registo():
     if request.method == "POST":
-        nome        = request.form.get("fnome")
-        nick        = request.form.get("fnick")
-        email       = request.form.get("femail")
-        pais        = request.form.get("fpais")
-        password    = request.form.get("fpass1")
+        nome     = request.form.get("fnome")
+        nick     = request.form.get("fnick")
+        email    = request.form.get("femail")
+        pais     = request.form.get("fpais")
+        password = request.form.get("fpass1")
 
         sucesso = registar_utilizador(nome, email, nick, pais, password)
-
         if sucesso:
-            flash("Utilizador registado com sucesso!", "success")
-            return redirect(url_for("anedotas.dashboard"))
+            flash("Foi enviado um email de confirmação.", "success")
         else:
-            flash("Erro ao registar utilizador. ", "error")
+            flash("Erro no registo do utilizador.", "error")
+        return redirect(url_for("anedotas.dashboard"))
+
+    return render_template("registo.html")
+
+
+
+@utilizadores.route("/confirmacao/<token>",methods=["GET"])
+def confirmacao(token):
+
+    link_recebido = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+
+    try:
+        dados = link_recebido.loads(
+            token,
+            salt='confirmar-email',
+            max_age= 24 * 60 * 60  # aqui confirmo a validade que desejo: 24 horas
+        )
+    except Exception:
+        flash("Token inválido ou expirado", "error")
+        return redirect(url_for("anedotas.dashboard"))
+
+    email_recebido = dados['email']
     
-    paises = listar_paises()
-    return render_template("registo.html", paises=paises)
+    sucesso = confirmar_registo(email_recebido)
+
+    if sucesso:
+        flash(f"O seu email '{email_recebido}' foi confirmado e seu registo está concluído.")
+    else:
+        flash(f"O seu email '{email_recebido}' foi confirmado mas o registo não pode ser concluído. Por favor tente novamente.")
+
+    return redirect(url_for("anedotas.dashboard"))
+
+
+
+    if sucesso:
+        flash("Utilizador registado com sucesso!", "success")
+        return redirect(url_for("anedotas.dashboard"))
+    else:
+        flash("Erro ao registar utilizador. Por favor tente novamente", "error")
+        return redirect(url_for("anedotas.dashboard"))
+
