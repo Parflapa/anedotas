@@ -1,9 +1,9 @@
-from flask import Blueprint, render_template, session, redirect, url_for, request, flash
-from app.services.serv_utilizadores import listar_utilizadores, listar_todas_anedotas_deste_utilizador, registar_utilizador, confirmar_registo  # type:ignore
+from flask import Blueprint, render_template, session, redirect, url_for, request, flash, current_app
+from app.services.serv_utilizadores import listar_utilizadores, listar_todas_anedotas_deste_utilizador, registar_utilizador, confirmar_registo, verificar_se_email_ja_esta_registado  # type:ignore
 from app.services.serv_paises import listar_paises
 from app.utils.auth import login_required
 from itsdangerous import URLSafeTimedSerializer
-from run import app
+
 
 utilizadores = Blueprint('utilizadores', __name__, url_prefix="/utilizadores")
 
@@ -40,22 +40,30 @@ def registo():
         email    = request.form.get("femail")
         pais     = request.form.get("fpais")
         password = request.form.get("fpass1")
+        # debug: flash(f"{nome}, {nick}, {email}, {pais}, {password}.", "success")
+        # output: Testolino, Testas, lapa.pedro@gmail.com, 1, batatas. 
+        # debug: return redirect(url_for("anedotas.dashboard"))
+        email_ja_existe = verificar_se_email_ja_esta_registado(email)
+        if email_ja_existe:
+            flash(f"O email '{email}' já está registado.", "error")
+            return redirect(url_for("anedotas.dashboard"))
 
         sucesso = registar_utilizador(nome, email, nick, pais, password)
         if sucesso:
-            flash("Foi enviado um email de confirmação.", "success")
+            flash("Para concluir o seu registo foi-lhe enviado um email de confirmação.", "success")
         else:
             flash("Erro no registo do utilizador.", "error")
         return redirect(url_for("anedotas.dashboard"))
 
-    return render_template("registo.html")
+    paises = listar_paises()
+    return render_template("registo.html", paises=paises)
 
 
 
 @utilizadores.route("/confirmacao/<token>",methods=["GET"])
 def confirmacao(token):
 
-    link_recebido = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+    link_recebido = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
 
     try:
         dados = link_recebido.loads(

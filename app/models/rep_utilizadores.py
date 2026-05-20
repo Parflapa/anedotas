@@ -178,7 +178,7 @@ def update_confirmar_registo(email):
             conexao.close()
 
 
-def user_tem_registo_pendente(utilizador_id):
+""" def user_tem_registo_pendente(utilizador_id):
     conexao = conectar_pymysql()
     cursor  = conexao.cursor()
 
@@ -194,7 +194,34 @@ def user_tem_registo_pendente(utilizador_id):
         if cursor:
             cursor.close()
         if conexao:
+            conexao.close() """
+
+
+def select_user_por_email(email):
+    """ Verifica se email já está registado
+    Returns:
+        Bool
+    """    
+    conexao     = conectar_pymysql()
+    cursor      = conexao.cursor()
+    query       = "SELECT * FROM utilizadores WHERE email_u = %s"
+    try:
+        cursor.execute(query,(email,))
+        resultado = cursor.fetchone()
+    except Exception as e:
+        print(e)
+        return False
+    finally:
+        if cursor:
+            cursor.close()
+        if conexao:
             conexao.close()
+   
+    if resultado:
+        return True
+    else:
+        return False
+    
 
 
 if __name__ == "__main__":

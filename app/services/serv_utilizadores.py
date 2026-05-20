@@ -1,14 +1,14 @@
-from app.models.rep_utilizadores import select_utilizadores_e_quantas_anedotas, select_nick_do_utilizador, validar_dados_de_login, insert_utilizador, update_confirmar_registo, user_tem_registo_pendente
+from app.models.rep_utilizadores import select_utilizadores_e_quantas_anedotas, select_nick_do_utilizador, validar_dados_de_login, insert_utilizador, update_confirmar_registo, select_user_por_email
 from app.models.rep_anedotas import select_anedotas_por_utilizador
 from app.utils.diversos import preview
 from pprint import pprint
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from flask import url_for
-from flask_mail import Message, mail
+from flask import url_for, current_app
+from flask_mail import Message
+from app.utils.extensoes import mail
 from itsdangerous import URLSafeTimedSerializer
-from app import criar_app
-app = criar_app()
+
 
 def listar_utilizadores():
     """Lista os utilizadores existentes e informa o número de anedotas dos mesmos
@@ -125,7 +125,7 @@ def enviar_email_confirmacao(user_email):
     # usa internamente a chave secreta Flask que assina criptograficamente o token e impede alguém de fabricar tokens falsos 
     # sem a SECRET_KEY correta o token não pode ser validado.
     # O que é URLSafeTimedSerializer: URLSafe (token é seguro para usar num URL: sem espaços, sem caracteres problemáticos, próprio para links de email)
-    s = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+    s = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
     dados_para_token = {
         'email' : user_email
     }
@@ -135,13 +135,18 @@ def enviar_email_confirmacao(user_email):
     with open('email_confirmacao.html') as f:
         html = f.read().replace('{{ url_confirmacao }}', url)
 
-    msg = Message('Confirma a tua conta', recipients=[user_email])
+    msg = Message(
+        'Confirma a tua conta',
+        recipients=[user_email])
     msg.html = html
     mail.send(msg)
 
 
-def verificar_token_registo(utilizador_id):
-    return user_tem_registo_pendente(utilizador_id)
+
+def verificar_se_email_ja_esta_registado(email):
+    return select_user_por_email(email)
+
+
 
 
 if __name__ == "__main__":
