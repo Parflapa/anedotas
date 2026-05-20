@@ -3,6 +3,7 @@ from app.services.serv_utilizadores import listar_utilizadores, listar_todas_ane
 from app.services.serv_paises import listar_paises
 from app.utils.auth import login_required
 from itsdangerous import URLSafeTimedSerializer
+#import logging
 
 
 utilizadores = Blueprint('utilizadores', __name__, url_prefix="/utilizadores")
@@ -34,6 +35,7 @@ def area_pessoal():
 
 @utilizadores.route("/registo", methods=["GET","POST"])
 def registo():
+    #logging.error("LOG VIA REQUEST")
     if request.method == "POST":
         nome     = request.form.get("fnome")
         nick     = request.form.get("fnick")
@@ -80,9 +82,9 @@ def confirmacao(token):
     sucesso = confirmar_registo(email_recebido)
 
     if sucesso:
-        flash(f"O seu email '{email_recebido}' foi confirmado e seu registo está concluído.")
+        flash(f"O seu email '{email_recebido}' foi confirmado e seu registo está concluído.", "success")
     else:
-        flash(f"O seu email '{email_recebido}' foi confirmado mas o registo não pode ser concluído. Por favor tente novamente.")
+        flash(f"O seu email '{email_recebido}' foi confirmado mas o registo não pode ser concluído. Por favor tente novamente.", "error")
 
     return redirect(url_for("anedotas.dashboard"))
 

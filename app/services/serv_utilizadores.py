@@ -8,6 +8,7 @@ from flask import url_for, current_app
 from flask_mail import Message
 from app.utils.extensoes import mail
 from itsdangerous import URLSafeTimedSerializer
+import logging
 
 
 def listar_utilizadores():
@@ -104,15 +105,26 @@ def listar_passes():
 
 
 def registar_utilizador(nome, email, nick, pais, password):
-    password_encriptada = generate_password_hash(password)
-    insercao = insert_utilizador(nome, email, nick, pais, password_encriptada, 1)
-    
-    if insercao:
-        enviar_email_confirmacao(email)
-        return True
-    else:
-        return False
+    try:
+        password_encriptada = generate_password_hash(password)
+        insercao = insert_utilizador(nome, email, nick, pais, password_encriptada, 1)
+        
+        if insercao:
+            logging.info(f"Utilizador registado com sucesso: {email}")
+            enviar_email_confirmacao(email)
+            logging.info(f"Email de confirmação enviado: {email}")
+            return True
+        else:
+            logging.warning(f"Falha ao registar utilizador (insert_utilizador=False): {email}")
+            return False
 
+    except Exception as e:
+        logging.error(
+            f"Erro inesperado ao registar utilizador: {email} - {str(e)}",
+            exc_info=True
+        )
+        return False
+    
 
 
 def confirmar_registo(email):
@@ -132,8 +144,8 @@ def enviar_email_confirmacao(user_email):
     token = s.dumps(dados_para_token, salt='confirmar-email')
     url = url_for('utilizadores.confirmacao', token=token, _external=True)
 
-    with open('email_confirmacao.html') as f:
-        html = f.read().replace('{{ url_confirmacao }}', url)
+    with open('app/templates/email_confirmacao.html') as f:
+        html = f.read().replace('{{ url_confirmacao | safe }}', url)
 
     msg = Message(
         'Confirma a tua conta',

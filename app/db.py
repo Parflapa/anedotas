@@ -2,8 +2,16 @@ from dotenv import load_dotenv
 import os
 import pymysql           # type:ignore
 # import mysql.connector
-# load_dotenv("/var/www/vhosts/websis.pt/credenciais/crd_anedotas")
-load_dotenv(r"C:\xampp\credenciais\crd_anedotas.env")
+
+
+local = r"C:\xampp\credenciais\crd_anedotas.env"
+prod = "/var/www/vhosts/websis.pt/credenciais/crd_anedotas.env"
+if os.path.exists(local):
+    load_dotenv(local)
+else:
+    load_dotenv(prod)
+
+
 
 def conectar_pymysql():
     conexao = pymysql.connect(

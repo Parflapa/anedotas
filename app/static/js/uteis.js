@@ -20,7 +20,7 @@ function openModal(tipo="delete",id=null,entidade=null) {
         case "delete":
             switch(entidade){
                 case "anedota":
-                    form.action = `/anedotas/eliminar/${id}`;
+                    form.action = `/eliminar/${id}`;
                     break;
                 case "categoria":
                     form.action = `/categorias/eliminar/${id}`;

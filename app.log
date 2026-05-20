@@ -1,0 +1,167 @@
+2026-05-20 12:48:48,709 - ERROR - TESTE LOG INIT
+2026-05-20 12:48:48,804 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-20 12:48:48,804 - INFO - [33mPress CTRL+C to quit[0m
+2026-05-20 12:48:48,806 - INFO -  * Restarting with stat
+2026-05-20 12:48:49,033 - ERROR - TESTE LOG INIT
+2026-05-20 12:48:49,071 - WARNING -  * Debugger is active!
+2026-05-20 12:48:49,073 - INFO -  * Debugger PIN: 318-541-244
+2026-05-20 12:49:01,272 - INFO - 127.0.0.1 - - [20/May/2026 12:49:01] "[33mGET /categoria/1 HTTP/1.1[0m" 404 -
+2026-05-20 12:49:11,685 - INFO - 127.0.0.1 - - [20/May/2026 12:49:11] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2026-05-20 12:49:11,792 - INFO - 127.0.0.1 - - [20/May/2026 12:49:11] "GET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2026-05-20 12:49:11,793 - INFO - 127.0.0.1 - - [20/May/2026 12:49:11] "GET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2026-05-20 12:49:11,816 - INFO - 127.0.0.1 - - [20/May/2026 12:49:11] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2026-05-20 12:49:11,923 - INFO - 127.0.0.1 - - [20/May/2026 12:49:11] "GET /?__debugger__=yes&cmd=resource&f=console.png&s=bEG5z8ctB6OQ4qLIZTky HTTP/1.1" 200 -
+2026-05-20 12:51:02,174 - INFO -  * Detected change in 'C:\\xampp\\htdocs\\anedotas\\app\\db.py', reloading
+2026-05-20 12:51:02,216 - INFO -  * Restarting with stat
+2026-05-20 12:51:02,453 - ERROR - TESTE LOG INIT
+2026-05-20 12:51:02,497 - WARNING -  * Debugger is active!
+2026-05-20 12:51:02,499 - INFO -  * Debugger PIN: 318-541-244
+2026-05-20 12:51:09,655 - ERROR - TESTE LOG INIT
+2026-05-20 12:51:09,702 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-20 12:51:09,702 - INFO - [33mPress CTRL+C to quit[0m
+2026-05-20 12:51:09,703 - INFO -  * Restarting with stat
+2026-05-20 12:51:09,928 - ERROR - TESTE LOG INIT
+2026-05-20 12:51:09,966 - WARNING -  * Debugger is active!
+2026-05-20 12:51:09,969 - INFO -  * Debugger PIN: 318-541-244
+2026-05-20 12:52:02,407 - INFO -  * Detected change in 'C:\\xampp\\htdocs\\anedotas\\app\\db.py', reloading
+2026-05-20 12:52:02,441 - INFO -  * Restarting with stat
+2026-05-20 12:52:02,681 - ERROR - TESTE LOG INIT
+2026-05-20 12:52:02,724 - WARNING -  * Debugger is active!
+2026-05-20 12:52:02,727 - INFO -  * Debugger PIN: 318-541-244
+2026-05-20 12:52:24,011 - INFO - 127.0.0.1 - - [20/May/2026 12:52:24] "GET / HTTP/1.1" 200 -
+2026-05-20 12:52:24,086 - INFO - 127.0.0.1 - - [20/May/2026 12:52:24] "GET /static/css/style.css HTTP/1.1" 200 -
+2026-05-20 12:52:24,673 - INFO - 127.0.0.1 - - [20/May/2026 12:52:24] "GET /static/js/uteis.js HTTP/1.1" 200 -
+2026-05-20 12:52:24,678 - INFO - 127.0.0.1 - - [20/May/2026 12:52:24] "GET /static/img/homepage_main_04.png HTTP/1.1" 200 -
+2026-05-20 12:52:30,438 - INFO - 127.0.0.1 - - [20/May/2026 12:52:30] "GET /aleatoria HTTP/1.1" 200 -
+2026-05-20 12:52:30,472 - INFO - 127.0.0.1 - - [20/May/2026 12:52:30] "[36mGET /static/js/uteis.js HTTP/1.1[0m" 304 -
+2026-05-20 12:52:30,474 - INFO - 127.0.0.1 - - [20/May/2026 12:52:30] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-05-20 12:52:32,703 - INFO - 127.0.0.1 - - [20/May/2026 12:52:32] "GET /top HTTP/1.1" 200 -
+2026-05-20 12:52:32,734 - INFO - 127.0.0.1 - - [20/May/2026 12:52:32] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-05-20 12:52:32,734 - INFO - 127.0.0.1 - - [20/May/2026 12:52:32] "[36mGET /static/js/uteis.js HTTP/1.1[0m" 304 -
+2026-05-20 12:52:34,982 - INFO - 127.0.0.1 - - [20/May/2026 12:52:34] "GET /5 HTTP/1.1" 200 -
+2026-05-20 12:52:35,015 - INFO - 127.0.0.1 - - [20/May/2026 12:52:35] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-05-20 12:52:35,016 - INFO - 127.0.0.1 - - [20/May/2026 12:52:35] "[36mGET /static/js/uteis.js HTTP/1.1[0m" 304 -
+2026-05-20 12:52:39,673 - INFO - 127.0.0.1 - - [20/May/2026 12:52:39] "GET /utilizadores/registo HTTP/1.1" 200 -
+2026-05-20 12:52:39,717 - INFO - 127.0.0.1 - - [20/May/2026 12:52:39] "[36mGET /static/js/uteis.js HTTP/1.1[0m" 304 -
+2026-05-20 12:52:39,718 - INFO - 127.0.0.1 - - [20/May/2026 12:52:39] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-05-20 12:53:02,233 - INFO -  * Detected change in 'C:\\xampp\\htdocs\\anedotas\\app\\db.py', reloading
+2026-05-20 12:53:02,269 - INFO -  * Restarting with stat
+2026-05-20 12:53:02,496 - ERROR - TESTE LOG INIT
+2026-05-20 12:53:02,537 - WARNING -  * Debugger is active!
+2026-05-20 12:53:02,540 - INFO -  * Debugger PIN: 318-541-244
+2026-05-20 12:53:06,585 - INFO -  * Detected change in 'C:\\xampp\\htdocs\\anedotas\\app\\db.py', reloading
+2026-05-20 12:53:06,622 - INFO -  * Restarting with stat
+2026-05-20 12:53:06,846 - ERROR - TESTE LOG INIT
+2026-05-20 12:53:06,888 - WARNING -  * Debugger is active!
+2026-05-20 12:53:06,891 - INFO -  * Debugger PIN: 318-541-244
+2026-05-20 12:53:13,978 - INFO -  * Detected change in 'C:\\xampp\\htdocs\\anedotas\\app\\db.py', reloading
+2026-05-20 12:53:14,013 - INFO -  * Restarting with stat
+2026-05-20 12:53:14,245 - ERROR - TESTE LOG INIT
+2026-05-20 12:53:14,287 - WARNING -  * Debugger is active!
+2026-05-20 12:53:14,290 - INFO -  * Debugger PIN: 318-541-244
+2026-05-20 12:53:23,360 - ERROR - TESTE LOG INIT
+2026-05-20 12:53:23,411 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-20 12:53:23,411 - INFO - [33mPress CTRL+C to quit[0m
+2026-05-20 12:53:23,412 - INFO -  * Restarting with stat
+2026-05-20 12:53:23,636 - ERROR - TESTE LOG INIT
+2026-05-20 12:53:23,674 - WARNING -  * Debugger is active!
+2026-05-20 12:53:23,676 - INFO -  * Debugger PIN: 318-541-244
+2026-05-20 12:53:29,735 - INFO - 127.0.0.1 - - [20/May/2026 12:53:29] "GET / HTTP/1.1" 200 -
+2026-05-20 12:53:29,824 - INFO - 127.0.0.1 - - [20/May/2026 12:53:29] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-05-20 12:53:30,361 - INFO - 127.0.0.1 - - [20/May/2026 12:53:30] "[36mGET /static/js/uteis.js HTTP/1.1[0m" 304 -
+2026-05-20 12:53:30,364 - INFO - 127.0.0.1 - - [20/May/2026 12:53:30] "[36mGET /static/img/homepage_main_04.png HTTP/1.1[0m" 304 -
+2026-05-20 13:00:37,402 - INFO - 127.0.0.1 - - [20/May/2026 13:00:37] "GET /categorias/ HTTP/1.1" 200 -
+2026-05-20 13:00:37,443 - INFO - 127.0.0.1 - - [20/May/2026 13:00:37] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-05-20 13:00:38,121 - INFO - 127.0.0.1 - - [20/May/2026 13:00:38] "[36mGET /static/js/uteis.js HTTP/1.1[0m" 304 -
+2026-05-20 13:00:39,704 - INFO - 127.0.0.1 - - [20/May/2026 13:00:39] "GET /categorias/1 HTTP/1.1" 200 -
+2026-05-20 13:00:39,747 - INFO - 127.0.0.1 - - [20/May/2026 13:00:39] "[36mGET /static/js/uteis.js HTTP/1.1[0m" 304 -
+2026-05-20 13:00:39,749 - INFO - 127.0.0.1 - - [20/May/2026 13:00:39] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-05-20 13:00:42,874 - INFO - 127.0.0.1 - - [20/May/2026 13:00:42] "GET / HTTP/1.1" 200 -
+2026-05-20 13:00:42,914 - INFO - 127.0.0.1 - - [20/May/2026 13:00:42] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-05-20 13:00:42,914 - INFO - 127.0.0.1 - - [20/May/2026 13:00:42] "[36mGET /static/js/uteis.js HTTP/1.1[0m" 304 -
+2026-05-20 13:00:42,926 - INFO - 127.0.0.1 - - [20/May/2026 13:00:42] "[36mGET /static/img/homepage_main_04.png HTTP/1.1[0m" 304 -
+2026-05-20 13:00:44,109 - INFO - 127.0.0.1 - - [20/May/2026 13:00:44] "GET /utilizadores/registo HTTP/1.1" 200 -
+2026-05-20 13:00:44,145 - INFO - 127.0.0.1 - - [20/May/2026 13:00:44] "[36mGET /static/js/uteis.js HTTP/1.1[0m" 304 -
+2026-05-20 13:00:44,146 - INFO - 127.0.0.1 - - [20/May/2026 13:00:44] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-05-20 13:01:15,331 - WARNING - Falha ao registar utilizador (insert_utilizador=False): parflapa@gmail.com
+2026-05-20 13:01:15,332 - INFO - 127.0.0.1 - - [20/May/2026 13:01:15] "[32mPOST /utilizadores/registo HTTP/1.1[0m" 302 -
+2026-05-20 13:01:15,351 - INFO - 127.0.0.1 - - [20/May/2026 13:01:15] "GET / HTTP/1.1" 200 -
+2026-05-20 13:01:15,383 - INFO - 127.0.0.1 - - [20/May/2026 13:01:15] "[36mGET /static/js/uteis.js HTTP/1.1[0m" 304 -
+2026-05-20 13:01:15,384 - INFO - 127.0.0.1 - - [20/May/2026 13:01:15] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-05-20 13:01:15,395 - INFO - 127.0.0.1 - - [20/May/2026 13:01:15] "[36mGET /static/img/homepage_main_04.png HTTP/1.1[0m" 304 -
+2026-05-20 13:09:53,973 - INFO -  * Detected change in 'C:\\xampp\\htdocs\\anedotas\\app\\__init__.py', reloading
+2026-05-20 13:09:54,008 - INFO -  * Restarting with stat
+2026-05-20 13:09:54,239 - ERROR - TESTE LOG INIT
+2026-05-20 13:09:54,278 - WARNING -  * Debugger is active!
+2026-05-20 13:09:54,281 - INFO -  * Debugger PIN: 318-541-244
+2026-05-20 13:09:58,325 - INFO -  * Detected change in 'C:\\xampp\\htdocs\\anedotas\\app\\__init__.py', reloading
+2026-05-20 13:09:58,360 - INFO -  * Restarting with stat
+2026-05-20 13:10:44,305 - ERROR - TESTE LOG INIT
+2026-05-20 13:10:44,351 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-20 13:10:44,351 - INFO - [33mPress CTRL+C to quit[0m
+2026-05-20 13:10:44,352 - INFO -  * Restarting with stat
+2026-05-20 13:10:44,579 - ERROR - TESTE LOG INIT
+2026-05-20 13:10:44,618 - WARNING -  * Debugger is active!
+2026-05-20 13:10:44,620 - INFO -  * Debugger PIN: 318-541-244
+2026-05-20 13:11:27,042 - ERROR - TESTE LOG INIT
+2026-05-20 13:11:27,090 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-20 13:11:27,090 - INFO - [33mPress CTRL+C to quit[0m
+2026-05-20 13:11:27,091 - INFO -  * Restarting with stat
+2026-05-20 13:11:27,321 - ERROR - TESTE LOG INIT
+2026-05-20 13:11:27,360 - WARNING -  * Debugger is active!
+2026-05-20 13:11:27,362 - INFO -  * Debugger PIN: 318-541-244
+2026-05-20 13:20:37,706 - INFO -  * Detected change in 'C:\\xampp\\htdocs\\anedotas\\app\\__init__.py', reloading
+2026-05-20 13:20:37,741 - INFO -  * Restarting with stat
+2026-05-20 13:47:06,065 - ERROR - TESTE LOG INIT
+2026-05-20 13:47:06,119 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-20 13:47:06,119 - INFO - [33mPress CTRL+C to quit[0m
+2026-05-20 13:47:06,120 - INFO -  * Restarting with stat
+2026-05-20 13:47:06,344 - ERROR - TESTE LOG INIT
+2026-05-20 13:47:06,383 - WARNING -  * Debugger is active!
+2026-05-20 13:47:06,385 - INFO -  * Debugger PIN: 318-541-244
+2026-05-20 13:47:09,443 - INFO - 127.0.0.1 - - [20/May/2026 13:47:09] "GET / HTTP/1.1" 200 -
+2026-05-20 13:47:09,524 - INFO - 127.0.0.1 - - [20/May/2026 13:47:09] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-05-20 13:47:10,137 - INFO - 127.0.0.1 - - [20/May/2026 13:47:10] "[36mGET /static/js/uteis.js HTTP/1.1[0m" 304 -
+2026-05-20 13:47:10,146 - INFO - 127.0.0.1 - - [20/May/2026 13:47:10] "[36mGET /static/img/homepage_main_04.png HTTP/1.1[0m" 304 -
+2026-05-20 13:51:06,564 - INFO -  * Detected change in 'C:\\xampp\\htdocs\\anedotas\\app\\db.py', reloading
+2026-05-20 13:51:06,597 - INFO -  * Restarting with stat
+2026-05-20 13:51:06,825 - ERROR - TESTE LOG INIT
+2026-05-20 14:16:04,819 - ERROR - TESTE LOG INIT
+2026-05-20 14:16:04,873 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-20 14:16:04,873 - INFO - [33mPress CTRL+C to quit[0m
+2026-05-20 14:16:04,874 - INFO -  * Restarting with stat
+2026-05-20 14:16:05,102 - ERROR - TESTE LOG INIT
+2026-05-20 14:16:05,139 - WARNING -  * Debugger is active!
+2026-05-20 14:16:05,141 - INFO -  * Debugger PIN: 318-541-244
+2026-05-20 14:16:07,574 - INFO - 127.0.0.1 - - [20/May/2026 14:16:07] "GET / HTTP/1.1" 200 -
+2026-05-20 14:16:07,651 - INFO - 127.0.0.1 - - [20/May/2026 14:16:07] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-05-20 14:16:08,244 - INFO - 127.0.0.1 - - [20/May/2026 14:16:08] "GET /static/js/uteis.js HTTP/1.1" 200 -
+2026-05-20 14:16:08,262 - INFO - 127.0.0.1 - - [20/May/2026 14:16:08] "[36mGET /static/img/homepage_main_04.png HTTP/1.1[0m" 304 -
+2026-05-20 14:16:11,322 - INFO - 127.0.0.1 - - [20/May/2026 14:16:11] "GET /4 HTTP/1.1" 200 -
+2026-05-20 14:16:11,351 - INFO - 127.0.0.1 - - [20/May/2026 14:16:11] "[36mGET /static/js/uteis.js HTTP/1.1[0m" 304 -
+2026-05-20 14:16:11,355 - INFO - 127.0.0.1 - - [20/May/2026 14:16:11] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2026-05-20 14:20:24,590 - INFO -  * Detected change in 'C:\\xampp\\htdocs\\anedotas\\app\\services\\serv_utilizadores.py', reloading
+2026-05-20 14:20:24,626 - INFO -  * Restarting with stat
+2026-05-20 14:20:24,859 - ERROR - TESTE LOG INIT
+2026-05-20 14:20:47,506 - ERROR - TESTE LOG INIT
+2026-05-20 14:20:47,556 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-20 14:20:47,556 - INFO - [33mPress CTRL+C to quit[0m
+2026-05-20 14:20:47,557 - INFO -  * Restarting with stat
+2026-05-20 14:20:47,779 - ERROR - TESTE LOG INIT
+2026-05-20 14:20:47,816 - WARNING -  * Debugger is active!
+2026-05-20 14:20:47,818 - INFO -  * Debugger PIN: 318-541-244
+2026-05-20 14:29:17,077 - INFO -  * Detected change in 'C:\\xampp\\htdocs\\anedotas\\app\\__init__.py', reloading
+2026-05-20 14:29:17,117 - INFO -  * Restarting with stat
+2026-05-20 14:29:17,367 - ERROR - TESTE LOG INIT
+2026-05-20 14:29:17,409 - WARNING -  * Debugger is active!
+2026-05-20 14:29:17,412 - INFO -  * Debugger PIN: 318-541-244
+2026-05-20 14:29:27,501 - INFO -  * Detected change in 'C:\\xampp\\htdocs\\anedotas\\app\\__init__.py', reloading
+2026-05-20 14:29:27,542 - INFO -  * Restarting with stat
