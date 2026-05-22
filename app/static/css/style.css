@@ -99,6 +99,13 @@ footer {
     font-size: 14px;
 }
 
+footer p a{
+    color:var(--corLinkAmareloHover2);
+}
+footer p a:hover{
+    color:var(--corLinkAmarelo);
+}
+
 /* DASHBOARD */
 
 .dashboard_e_listagens {

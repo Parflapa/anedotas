@@ -1,12 +1,11 @@
 from flask import Flask, session   # classe usada para instanciar a aplicação web
+from datetime import datetime
 import os
 import sys
 import logging
 from dotenv import load_dotenv
 from app.utils.extensoes import mail
 from werkzeug.middleware.proxy_fix import ProxyFix
-
-
 
 
 caminho_local = r"C:\xampp\credenciais"
@@ -72,10 +71,11 @@ def criar_app():
     # context_processor é uma função de injeção de variáveis para templates Jinja.
     # é executado APENAS quando um template é renderizado
     @app.context_processor
-    def inject_user():
+    def inject_vars():
         return {
-            "user_logado": session.get("user_id"),
-            "username": session.get("username")
+            "user_logado"   : session.get("id_utilizador"),
+            "username"      : session.get("nome_utilizador"),
+            "data_atual"    : datetime.now()
         }
 
     # importar e registar blueprints no fim

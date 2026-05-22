@@ -22,10 +22,11 @@
             </nav>
         </div>
         <div id="login">
-            {% if session.get("id_utilizador") %}
-
+            {% if user_logado %}
+            {# {% if session.get("id_utilizador") %} #}
                 <div class="user-info">
-                    <div>Olá, {{ session.get("nome_utilizador") }}</div>
+                    <div>Olá, {{ username }}</div>
+                    <!-- <div>Olá, {{ session.get("nome_utilizador") }}</div> -->
                     <div class="div-area-pessoal">
                         <a class="area-pessoal" href="{{ url_for('utilizadores.area_pessoal') }}">Área pessoal</a>
                         {% if session.get("nivel_utilizador") == 2 %}
@@ -73,7 +74,8 @@
 
 <footer>
     <div class="container">
-        <p>© 2026 Anedotas - Todos os direitos reservados</p>
+        <p>© {{ data_atual.strftime("%Y") }} Anedotas - © Projeto desenvolvido no âmbito da formação da <a href="https://websis.pt">Websis.</a> Todos os direitos reservados.</p>
+        <!-- <p>© {{ data_atual.strftime("%d/%m/%Y %H:%M") }} Anedotas - Todos os direitos reservados</p> -->
     </div>
 </footer>
 
