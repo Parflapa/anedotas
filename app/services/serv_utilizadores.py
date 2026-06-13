@@ -110,9 +110,9 @@ def registar_utilizador(nome, email, nick, pais, password):
         insercao = insert_utilizador(nome, email, nick, pais, password_encriptada, 1)
         
         if insercao:
-            logging.info(f"Utilizador registado com sucesso: {email}")
+            # logging.info(f"Utilizador registado com sucesso: {email}")
             enviar_email_confirmacao(email)
-            logging.info(f"Email de confirmação enviado: {email}")
+            # logging.info(f"Email de confirmação enviado: {email}")
             return True
         else:
             logging.warning(f"Falha ao registar utilizador (insert_utilizador=False): {email}")

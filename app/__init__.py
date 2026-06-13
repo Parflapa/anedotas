@@ -18,7 +18,7 @@ else:
     load_dotenv(os.path.join(caminho_prod, ficheiro_env))
 
 
-
+# processo de "debug" da publicação, que não é necessária para a aplicação funcionar.
 def setup_logging():
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
@@ -41,13 +41,13 @@ def criar_app():
     app = Flask(__name__)
 
     app.config['SECRET_KEY'] = os.environ.get('SK', 'dev-inseguro')
-    app.config['PREFERRED_URL_SCHEME'] = 'https'
+    app.config['PREFERRED_URL_SCHEME'] = 'https'   # define https como esquema (request.scheme) “default” quando o Flask não consegue inferir o esquema correto
     app.wsgi_app = ProxyFix(
         app.wsgi_app,
-        x_for=1,
-        x_proto=1,
-        x_host=1,
-        x_port=1
+        x_for=1,    # permite receber ip verdadeiro do cliente em vez do local ex:127.0.0.1
+        x_proto=1,  # importante permite perceber quando é https 
+        x_host=1,   # Permite que o Flask conheça corretamente o domínio pedido em vez do host interno
+        x_port=1    # Permite reconhecer a porta original em vez da porta usada internamente entre proxy e Flask
     )
 
     # mail config
@@ -65,7 +65,7 @@ def criar_app():
     # print("MAIL_SERVER:", os.environ.get('MAIL_SERVER'))
     # print("MAIL_PASSWORD:", os.environ.get('MAIL_PASSWORD'))
     # print("MAIL_USE_SSL:", os.environ.get('MAIL_USE_SSL'))
-
+    
     setup_logging()
 
     # context_processor é uma função de injeção de variáveis para templates Jinja.
