@@ -52,44 +52,43 @@ def listar_todas_anedotas_deste_utilizador(utilizador_id):
 
 def validar_login(nick_ou_email, password):
     """
-    Valida credenciais de login sem efeitos colaterais (stateless).
+    Valida as credenciais do utilizador sem criar sessão.
 
     Args:
-        nick_ou_email (str): Nick ou email do utilizador.
+        nick_ou_email (str): Nick ou email.
         password (str): Password em texto simples.
 
     Returns:
         dict:
-            {
-                "sucesso": bool,
-                "mensagem": str (opcional),
-                "utilizador": dict (opcional)
-            }
+        {
+            "sucesso": bool,
+            "mensagem": str (opcional),
+            "utilizador": dict (opcional)
+        }
     """
 
-    dados = validar_dados_de_login(nick_ou_email)
+    resultado = validar_dados_de_login(nick_ou_email)
 
-    if "mensagem" in dados:
+    if not resultado["sucesso"]:
+        return resultado
+
+    utilizador = resultado["dados"]
+
+    if not check_password_hash(utilizador["password_u"], password):
         return {
             "sucesso": False,
-            "mensagem": dados["mensagem"]
-        }
-
-    if check_password_hash(dados["password_u"], password):
-        return {
-            "sucesso": True,
-            "utilizador": {
-                "id": dados["id_u"],
-                "nome": dados["nome_u"],
-                "nick": dados["nick_u"],
-                "email": dados["email_u"],
-                "nivel": dados["nivel_u"]
-            }
+            "mensagem": "Password incorreta."
         }
 
     return {
-        "sucesso": False,
-        "mensagem": "Password incorreta"
+        "sucesso": True,
+        "utilizador": {
+            "id": utilizador["id_u"],
+            "nome": utilizador["nome_u"],
+            "nick": utilizador["nick_u"],
+            "email": utilizador["email_u"],
+            "nivel": utilizador["nivel_u"]
+        }
     }
         
 

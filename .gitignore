@@ -16,3 +16,6 @@ venv/
 # OS files (opcional)
 .DS_Store
 Thumbs.db
+
+# Pasta das credenciais
+credenciais/

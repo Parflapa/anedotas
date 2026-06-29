@@ -97,18 +97,27 @@ def select_nick_do_utilizador(utilizador_id):
 def validar_dados_de_login(nick_ou_email):
     """
     Obtém os dados de um utilizador a partir do nick ou email.
+
+    Args:
+        nick_ou_email (str): Nick ou email do utilizador.
+
     Returns:
-        dict:{"id_u": int, "nome_u": str, "nick_u": str, "email_u": str, "password_u": str}
-        ou {"mensagem": str}
+        dict:
+        {
+            "sucesso": bool,
+            "mensagem": str (opcional),
+            "dados": dict (opcional)
+        }
     """
 
     conexao = conectar_pymysql()
     cursor = conexao.cursor()
 
     query = """
-        SELECT id_u, nome_u, nick_u, email_u, password_u, nivel_u, confirmado_u
+        SELECT id_u, nome_u, nick_u, email_u, password_u, nivel_u
         FROM utilizadores
-        WHERE confirmado_u = 1 AND (nick_u = %s OR email_u = %s)
+        WHERE confirmado_u = 1
+          AND (nick_u = %s OR email_u = %s)
     """
 
     try:
@@ -116,26 +125,32 @@ def validar_dados_de_login(nick_ou_email):
         resultado = cursor.fetchone()
 
         if not resultado:
-            return {"mensagem": "O utilizador não foi encontrado"}
+            return {
+                "sucesso": False,
+                "mensagem": "O utilizador não foi encontrado."
+            }
 
         return {
-            "id_u": resultado["id_u"],
-            "nome_u": resultado["nome_u"],
-            "nick_u": resultado["nick_u"],
-            "email_u": resultado["email_u"],
-            "password_u": resultado["password_u"],
-            "nivel_u": resultado["nivel_u"]
+            "sucesso": True,
+            "dados": {
+                "id_u": resultado["id_u"],
+                "nome_u": resultado["nome_u"],
+                "nick_u": resultado["nick_u"],
+                "email_u": resultado["email_u"],
+                "password_u": resultado["password_u"],
+                "nivel_u": resultado["nivel_u"]
+            }
         }
-    except Exception as e:
+
+    except Exception:
         return {
-            "mensagem": "Erro na base de dados.",
-            "erro": str(e)
+            "sucesso": False,
+            "mensagem": "Erro na base de dados."
         }
+
     finally:
-        if cursor:
-            cursor.close()
-        if conexao:
-            conexao.close()
+        cursor.close()
+        conexao.close()
 
 
 
