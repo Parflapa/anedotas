@@ -22,9 +22,11 @@ def conectar_pymysql():
         autocommit  = False,
         cursorclass = pymysql.cursors.DictCursor
     )
-    print("HOST:", os.getenv("DB_HOST"))
-    print("USER:", os.getenv("DB_USER"))
-    print("DB:", os.getenv("DB_NAME"))
+   
+    # print("HOST:", os.getenv("DB_HOST"))
+    # print("USER:", os.getenv("DB_USER"))
+    # print("DB:", os.getenv("DB_NAME")) 
+    
     return conexao
 
 

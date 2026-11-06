@@ -1,9 +1,9 @@
-from app.db import conectar_pymysql
+from app.db import conectar_pymysql, pymysql
 from app.utils.datas import formatar_data_pt
 from pprint import pprint
 import random
 
-
+#-----------------------------------------------------------------------------------------------
 def select_todas_anedotas(tipo="atual"):
     """
     Seleciona todos os campos da tabela
@@ -40,6 +40,7 @@ def select_todas_anedotas(tipo="atual"):
     
     return resultado
 
+#-----------------------------------------------------------------------------------------------
 
 def select_anedotas_por_categoria(categoria_id, limite=None):
     """
@@ -92,6 +93,7 @@ def select_anedotas_por_categoria(categoria_id, limite=None):
         cursor.close()
         conexao.close()
 
+#-----------------------------------------------------------------------------------------------
 
 def select_anedotas_por_utilizador(utilizador_id, limite=None):
     """
@@ -146,6 +148,7 @@ def select_anedotas_por_utilizador(utilizador_id, limite=None):
         if conexao:
             conexao.close()
 
+#-----------------------------------------------------------------------------------------------
 
 def select_anedota_por_id(anedota_id):
     """ Pesquisa uma anedota pelo id e devolve todos os dados
@@ -161,7 +164,16 @@ def select_anedota_por_id(anedota_id):
 
     try:
         query   = """
-        SELECT id_a AS anedota_id, texto_a AS anedota, data_a AS data, nick_u AS nick, id_u AS utilizador_id, nome_c AS categoria, id_c AS categoria_id, visualizacoes_a AS visualizacoes, votos_a AS votos 
+        SELECT 
+            id_a AS anedota_id, 
+            texto_a AS anedota, 
+            data_a AS data, 
+            nick_u AS nick, 
+            id_u AS utilizador_id, 
+            nome_c AS categoria, 
+            id_c AS categoria_id, 
+            visualizacoes_a AS visualizacoes, 
+            votos_a AS votos 
         FROM anedotas 
         LEFT JOIN categorias ON categoria_a=id_c
         LEFT JOIN utilizadores ON utilizador_a=id_u
@@ -178,6 +190,7 @@ def select_anedota_por_id(anedota_id):
             conexao.close()
     return resultado
 
+#-----------------------------------------------------------------------------------------------
 
 def insert_anedota(autor, texto, categoria):
     conexao     = conectar_pymysql()
@@ -201,6 +214,7 @@ def insert_anedota(autor, texto, categoria):
         if conexao:
             conexao.close()
 
+#-----------------------------------------------------------------------------------------------
 
 def update_anedota(id, texto, categoria):
     conexao     = conectar_pymysql()
@@ -224,7 +238,7 @@ def update_anedota(id, texto, categoria):
         if conexao:
             conexao.close()
 
-
+#-----------------------------------------------------------------------------------------------
 
 def delete_anedota(id):
     conexao = conectar_pymysql()
@@ -246,6 +260,7 @@ def delete_anedota(id):
         if conexao:
             conexao.close()
 
+#-----------------------------------------------------------------------------------------------
 
 def update_anedota_add_visualizacao(id):
     conexao = conectar_pymysql()
@@ -268,11 +283,13 @@ def update_anedota_add_visualizacao(id):
         if conexao:
             conexao.close()
 
+#-----------------------------------------------------------------------------------------------
 
 def update_anedota_add_voto(id):
     conexao = conectar_pymysql()
-    cursor = conexao.cursor()
+    cursor  = None
     try:
+        cursor = conexao.cursor()
         query = """
         UPDATE anedotas
         SET votos_a = votos_a + 1
@@ -282,7 +299,7 @@ def update_anedota_add_voto(id):
         conexao.commit()
         return True
     except Exception as e:
-        print(e)
+        print(f"Erro MySQL: {e}")
         return False
     finally:
         if cursor:
@@ -290,6 +307,7 @@ def update_anedota_add_voto(id):
         if conexao:
             conexao.close()
 
+#-----------------------------------------------------------------------------------------------
 
 def select_anedota_aleatoria():
     conexao = conectar_pymysql()
@@ -315,7 +333,125 @@ def select_anedota_aleatoria():
 
     return id_aleatorio
 
+#-----------------------------------------------------------------------------------------------
 
+def select_anedotas_favoritas(utilizador,tipo="atual"):
+    """
+    Seleciona todos os campos da tabela
+
+    Returns:
+        _type_: Dictionary
+    """
+    conexao     = conectar_pymysql()
+    cursor      = conexao.cursor()
+    if tipo == "atual":
+        order_by = "data_a DESC"
+    elif tipo == "top":
+        order_by = "votos_a DESC"
+    elif tipo == "visualizacoes":
+        order_by = "visualizacoes_a DESC"
+    else:
+        order_by = "data_a DESC"
+
+    query       = f"""
+                    SELECT
+                        id_a            AS id,
+                        texto_a         AS anedota,
+                        data_a          AS data,
+                        nome_c          AS categoria,
+                        id_c            AS id_categoria,
+                        nick_u          AS nick,
+                        utilizador_f    AS id_utilizador
+                    FROM favoritas
+                    LEFT JOIN anedotas ON anedota_f=id_a
+                    LEFT JOIN categorias ON categoria_a=id_c
+                    LEFT JOIN utilizadores ON utilizador_f=id_u
+                    WHERE utilizador_f = %s
+                    ORDER BY {order_by}
+                """
+
+    try:
+        cursor.execute(query,(utilizador,))
+        resultado   = cursor.fetchall()
+    except pymysql.Error as e:
+        print(e)
+        resultado = []
+    finally:
+        conexao.close()
+    
+    return resultado
+
+#-----------------------------------------------------------------------------------------------
+
+def toggle_favorita(anedota_id: int, utilizador_id: int):
+    conexao = conectar_pymysql()
+    cursor = None
+
+    try:
+        cursor = conexao.cursor()
+
+        query = """
+            SELECT id_f
+            FROM favoritas
+            WHERE anedota_f = %s AND utilizador_f = %s
+        """
+        cursor.execute(query, (anedota_id, utilizador_id))
+
+        favorita = cursor.fetchone()
+
+        if favorita:
+            query = """
+                DELETE FROM favoritas
+                WHERE anedota_f = %s AND utilizador_f = %s
+            """
+            cursor.execute(query, (anedota_id, utilizador_id))
+            conexao.commit()
+            return False  # Deixou de ser favorita
+
+        else:
+            query = """
+                INSERT INTO favoritas (anedota_f, utilizador_f)
+                VALUES (%s, %s)
+            """
+            cursor.execute(query, (anedota_id, utilizador_id))
+            conexao.commit()
+            return True  # Passou a ser favorita
+
+    except pymysql.Error as e:
+        print(f"Erro MySQL: {e}")
+        conexao.rollback()
+        return None
+
+    finally:
+        if cursor:
+            cursor.close()
+        if conexao:
+            conexao.close()
+
+#-----------------------------------------------------------------------------------------------
+
+def verificar_favorita(anedota_id: int, utilizador_id: int) -> bool:
+
+    conexao = conectar_pymysql()
+    cursor = None
+
+    try:
+        cursor = conexao.cursor()
+        sql = """
+            SELECT id_f FROM favoritas
+            WHERE anedota_f = %s AND utilizador_f = %s
+        """
+        cursor.execute(sql, (anedota_id, utilizador_id))
+        resultado = cursor.fetchone()
+
+        return bool(resultado)
+
+    except pymysql.Error as e:
+        print(f"Erro MySQL: {e}")
+        conexao.rollback()
+        return False
+        
+#-----------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    pprint(select_anedota_por_id(1))
+    pprint(select_anedotas_favoritas(1))

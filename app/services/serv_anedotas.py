@@ -1,4 +1,4 @@
-from app.models.rep_anedotas import select_todas_anedotas, select_anedotas_por_categoria,select_anedota_por_id, select_anedotas_por_utilizador, insert_anedota, update_anedota, delete_anedota, update_anedota_add_voto, update_anedota_add_visualizacao, select_anedota_aleatoria
+from app.models.rep_anedotas import select_todas_anedotas, select_anedotas_por_categoria,select_anedota_por_id, select_anedotas_por_utilizador, insert_anedota, update_anedota, delete_anedota, update_anedota_add_voto, update_anedota_add_visualizacao, select_anedota_aleatoria, select_anedotas_favoritas, toggle_favorita, verificar_favorita
 from app.models.rep_categorias import select_categorias_e_quantas_anedotas
 from app.utils.datas import formatar_data_pt
 from app.utils.diversos import  preview
@@ -53,6 +53,16 @@ def listar_anedotas_por_utilizador(id_utilizador,quantasAnedotas=None):
     return lista_anedotas
 
 
+def listar_anedotas_favoritas(id_utilizador,quantasAnedotas=None):
+    lista_anedotas  = select_anedotas_favoritas(id_utilizador)
+    for anedota in lista_anedotas:
+        anedota['preview'] = preview(anedota['anedota'])
+        #pprint(anedota)
+
+    #pprint(lista_anedotas)
+    return lista_anedotas
+
+
 
 def dash_board_categorias_anedotas():
     """
@@ -84,15 +94,18 @@ def dash_board_categorias_anedotas():
 
 
 
-def detalhes_da_anedota(anedota_id):
+def detalhes_da_anedota(anedota_id, utilizador_id=None):
     detalhes = select_anedota_por_id(anedota_id)
-    detalhes['data'] = formatar_data_pt(detalhes['data'])       # type:ignore
+    if not detalhes:
+        return None
+    detalhes['data'] = formatar_data_pt(detalhes['data'])                       # type:ignore
+    if utilizador_id is not None:
+        detalhes['favorita'] = verificar_favorita(anedota_id, utilizador_id)    # type:ignore
     return detalhes
 
 
 def adicionar_anedota(utilizador,texto,categoria):
     return insert_anedota(utilizador,texto,categoria)
-
 
 
 def editar_anedota(id,texto,categoria):
@@ -117,8 +130,10 @@ def anedota_aleatoria():
     detalhes = detalhes_da_anedota(id_aleatorio)
     return detalhes
 
+def editar_favorita(id_anedota,id_utilizador):
+    return toggle_favorita(id_anedota,id_utilizador)
 
 
 # para debug
 if __name__ == "__main__":
-    pprint(anedota_aleatoria())
+    pprint(detalhes_da_anedota(6,1))

@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
-from app.services.serv_anedotas import detalhes_da_anedota, dash_board_categorias_anedotas, adicionar_anedota, editar_anedota, eliminar_anedota, votar_nesta_anedota, mais_uma_visualizacao_nesta_anedota, listar_anedotas, anedota_aleatoria
+from app.services.serv_anedotas import detalhes_da_anedota, dash_board_categorias_anedotas, adicionar_anedota, editar_anedota, eliminar_anedota, votar_nesta_anedota, mais_uma_visualizacao_nesta_anedota, listar_anedotas, anedota_aleatoria, listar_anedotas_favoritas, editar_favorita
 from app.services.serv_categorias import listar_categorias
 from app.utils.auth import login_required
 
@@ -18,7 +18,8 @@ def dashboard():
 def detalhes_anedota(anedota_id):
     # adicionar visualização
     mais_uma_visualizacao_nesta_anedota(anedota_id)
-    detalhes = detalhes_da_anedota(anedota_id)
+    utilizador_id = session.get("id_utilizador")
+    detalhes = detalhes_da_anedota(anedota_id,utilizador_id)
     return render_template("detalhes_da_anedota.html", detalhes=detalhes)
 
 
@@ -111,4 +112,23 @@ def aleatoria():
     detalhes = anedota_aleatoria()
     return render_template("detalhes_da_anedota.html", detalhes=detalhes)
 
+
+@anedotas.route("/favoritas")
+def favoritas():
+    id_utilizador = session.get("id_utilizador")
+    favoritas = listar_anedotas_favoritas(id_utilizador)
+    return render_template("favoritas.html", lista=favoritas)
+
+
+@anedotas.route("/editar_favoritas/<int:anedota_id>", methods=["GET"])
+def editar_favoritas(anedota_id):
+    utilizador_id = session.get("id_utilizador")
+    sucesso = editar_favorita(anedota_id,utilizador_id)
+    if sucesso:
+        flash("Anedota adicionada às favoritas.", "success")
+    else:
+        flash("Anedota removida das favoritas.", "success")
+
+    detalhes = detalhes_da_anedota(anedota_id,utilizador_id)
+    return render_template("detalhes_da_anedota.html", detalhes=detalhes)
 

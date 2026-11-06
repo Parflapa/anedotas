@@ -19,8 +19,20 @@
             <p>
                 <a class="like-btn" href="{{ url_for('anedotas.votar', anedota_id=detalhes.anedota_id) }}" title="Votar nesta anedota">
                     👍 
-                </a> ({{ detalhes.votos }} votos)
+                </a> ({{ detalhes.votos }} likes)
             </p>
+            {% if user_logado %}
+                <!-- NOVO: Favorita -->
+                <p>
+                    <a class="like-btn" href="{{ url_for('anedotas.editar_favoritas', anedota_id=detalhes.anedota_id) }}"  title="{{ 'Remover das favoritas' if detalhes.favorita else 'Adicionar às favoritas' }}">
+                        {% if detalhes.favorita %}
+                            ❤️
+                        {% else %}
+                            🩶
+                        {% endif %}
+                    </a>
+                </p>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

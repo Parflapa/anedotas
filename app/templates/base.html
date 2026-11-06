@@ -16,6 +16,9 @@
             <nav>
                 <!-- <a href="/">Home</a> -->
                 <a href="{{url_for('anedotas.dashboard')}}">Home</a>
+                {% if user_logado %}
+                    <a href="{{url_for('anedotas.favoritas')}}">Favoritas</a>
+                {% endif %}
                 <a href="{{url_for('anedotas.aleatoria')}}">Aleatória</a>
                 <a href="{{url_for('anedotas.top')}}">Top</a>
                 <a href="{{url_for('categorias.lista_categorias')}}">Categorias</a>
